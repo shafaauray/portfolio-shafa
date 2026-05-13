@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL RESET */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-brownDark text-cream font-body antialiased;
+}
+
+/* HEADING STYLE GLOBAL */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serifDisplay tracking-wide;
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c120d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c19b2e;
+}
+
+/* FADE IN ANIMATION */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* SMOOTH CARD TRANSITION */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+}

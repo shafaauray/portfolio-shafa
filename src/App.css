@@ -1,0 +1,21 @@
+/* Optional custom animation layer */
+
+.glass-card {
+  background: rgba(36, 23, 17, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.gold-glow {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(212, 175, 55, 0.6),
+    transparent
+  );
+}
