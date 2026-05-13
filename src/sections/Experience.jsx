@@ -211,14 +211,21 @@ const documentationMap = {
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-28 px-6 md:px-20 bg-brownDark">
+    <section
+      id="experience"
+      className="py-24 px-4 sm:px-6 md:px-20 bg-brownDark overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-serifDisplay font-bold text-gold mb-12">
           Experience
         </h2>
 
         <Section title="Work Experience" data={workExperience} />
-        <Section title="Organizational & Event Experience" data={organizationExperience} />
+
+        <Section
+          title="Organizational & Event Experience"
+          data={organizationExperience}
+        />
       </div>
     </section>
   )
@@ -230,6 +237,7 @@ function Section({ title, data }) {
       <h3 className="text-xl font-semibold text-gold mb-6">
         {title}
       </h3>
+
       <div className="space-y-6 mb-16">
         {data.map((item, i) => (
           <ExperienceCard
@@ -251,62 +259,73 @@ function ExperienceCard({ item, docs }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-card border border-gold/20 p-6 rounded-2xl"
+      transition={{ duration: 0.4 }}
+      className="bg-card border border-gold/20 p-5 sm:p-6 rounded-2xl overflow-hidden"
     >
-      <div className="flex flex-col md:flex-row md:justify-between gap-2">
-        <div>
-          <h4 className="text-cream font-semibold text-lg">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:justify-between gap-3">
+        <div className="min-w-0">
+          <h4 className="text-cream font-semibold text-lg break-words">
             {item.role}
           </h4>
-          <p className="text-gold/90 font-medium">
+
+          <p className="text-gold/90 font-medium break-words leading-relaxed">
             {item.institution}
           </p>
-          <p className="text-cream/60 text-sm">
+
+          <p className="text-cream/60 text-sm mt-1">
             {item.location}
           </p>
         </div>
 
-        <p className="text-cream/60 text-sm whitespace-nowrap md:text-right">
+        <p className="text-cream/60 text-sm md:text-right shrink-0">
           {item.period}
         </p>
       </div>
 
-      <p className="mt-4 text-cream/70">
+      {/* DESCRIPTION */}
+      <p className="mt-4 text-cream/70 leading-relaxed break-words">
         {item.description}
       </p>
 
-      <ul className="mt-3 list-disc list-inside text-cream/70 space-y-1">
+      {/* TASKS */}
+      <ul className="mt-3 list-disc list-inside text-cream/70 space-y-2">
         {item.tasks.map((task, i) => (
-          <li key={i}>{task}</li>
+          <li key={i} className="break-words">
+            {task}
+          </li>
         ))}
       </ul>
 
+      {/* BUTTON */}
       <button
         onClick={() => setOpen(!open)}
-        className="mt-4 text-sm text-gold hover:underline"
+        className="mt-5 text-sm text-gold hover:underline"
       >
         {open ? "Hide Documentation" : "View Documentation"}
       </button>
 
+      {/* DOCS */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
-            transition={{ duration: 0.25 }}
-            className="mt-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-4">
               {docs.map((src, i) => (
                 <div
                   key={i}
-                  className="aspect-[4/3] rounded-lg overflow-hidden border border-gold/20"
+                  className="aspect-[4/3] rounded-xl overflow-hidden border border-gold/20"
                 >
                   <img
                     src={src}
                     alt="Documentation"
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
               ))}
