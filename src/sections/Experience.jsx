@@ -193,7 +193,7 @@ const organizationExperience = [
 ]
 
 const documentationMap = {
-  "Personnel Information Division Staff": ["/internbkn1.jpeg"],["/internbkn2.jpeg"], 
+  "Personnel Information Division Staff": ["/internbkn1.jpeg"],
   "Selection Committee Staff – Calon Aparatur Sipil Negara (CASN)": ["/fotoshafa2.jpg"],
   "Staff of Ministry of Creative Media": ["/fotoshafa3.jpg"],
   "Staff of Public Relations Division": ["/fotoshafa4.jpg"],
@@ -206,7 +206,7 @@ const documentationMap = {
   "Staff of Documentation Decoration Design Division": ["/fotoshafa11.jpg"],
   "Secretary & Master of Ceremony": ["/fotoshafa12.jpg"],
   "Staff of Security Division": ["/fotoshafa13.jpg"],
-  "Executor": ["/fotoshafa14.jpg"],
+  Executor: ["/fotoshafa14.jpg"],
 }
 
 export default function Experience() {
