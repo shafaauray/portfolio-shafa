@@ -209,21 +209,17 @@ const documentationMap = {
   ],
 
   "Staff of Public Relations Division": [
-    "/fotoshafa4.jpg",
-    "/fotoshafa4-2.jpg",
-    "/fotoshafa4-3.jpg",
+    "/kmteti1.jpeg",
   ],
 
   "Head of Human Resources Development": [
-    "/fotoshafa5.jpg",
-    "/fotoshafa5-2.jpg",
-    "/fotoshafa5-3.jpg",
+    "/psdm.jpeg",
   ],
 
   "Head of Coaching": [
-    "/fotoshafa6.jpg",
-    "/fotoshafa6-2.jpg",
-    "/fotoshafa6-3.jpg",
+    "/coaching1.jpeg",
+    "/coaching2.jpeg",
+    "/coaching3.jpeg",
   ],
 
   "Sub-Coordinator of the Logistics and Consumption": [
@@ -251,9 +247,7 @@ const documentationMap = {
   ],
 
   "Staff of Documentation Decoration Design Division": [
-    "/fotoshafa11.jpg",
-    "/fotoshafa11-2.jpg",
-    "/fotoshafa11-3.jpg",
+    "/ddd.jpeg",
   ],
 
   "Secretary & Master of Ceremony": [
