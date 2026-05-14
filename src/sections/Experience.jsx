@@ -193,20 +193,86 @@ const organizationExperience = [
 ]
 
 const documentationMap = {
-  "Personnel Information Division Staff": ["/internbkn1.jpeg"],
-  "Selection Committee Staff – Calon Aparatur Sipil Negara (CASN)": ["/fotoshafa2.jpg"],
-  "Staff of Ministry of Creative Media": ["/fotoshafa3.jpg"],
-  "Staff of Public Relations Division": ["/fotoshafa4.jpg"],
-  "Head of Human Resources Development": ["/fotoshafa5.jpg"],
-  "Head of Coaching": ["/fotoshafa6.jpg"],
-  "Sub-Coordinator of the Logistics and Consumption": ["/fotoshafa7.jpg"],
-  "Event Committee – Match Scheduling and Coordination": ["/fotoshafa8.jpg"],
-  "Sub-Coordinator of the Equipment and Logistics": ["/fotoshafa9.jpg"],
-  "Event Coordinator & Executor": ["/fotoshafa10.jpg"],
-  "Staff of Documentation Decoration Design Division": ["/fotoshafa11.jpg"],
-  "Secretary & Master of Ceremony": ["/fotoshafa12.jpg"],
-  "Staff of Security Division": ["/fotoshafa13.jpg"],
-  Executor: ["/fotoshafa14.jpg"],
+  "Personnel Information Division Staff": [
+    "/internbkn1.jpeg",
+    "/internbkn2.jpeg",
+  ],
+
+  "Selection Committee Staff – Calon Aparatur Sipil Negara (CASN)": [
+    "/casn1.jpeg",
+    "/casn2.jpeg",
+    "/casn3.jpeg",
+  ],
+
+  "Staff of Ministry of Creative Media": [
+    "/bem.jpeg",
+  ],
+
+  "Staff of Public Relations Division": [
+    "/fotoshafa4.jpg",
+    "/fotoshafa4-2.jpg",
+    "/fotoshafa4-3.jpg",
+  ],
+
+  "Head of Human Resources Development": [
+    "/fotoshafa5.jpg",
+    "/fotoshafa5-2.jpg",
+    "/fotoshafa5-3.jpg",
+  ],
+
+  "Head of Coaching": [
+    "/fotoshafa6.jpg",
+    "/fotoshafa6-2.jpg",
+    "/fotoshafa6-3.jpg",
+  ],
+
+  "Sub-Coordinator of the Logistics and Consumption": [
+    "/fotoshafa7.jpg",
+    "/fotoshafa7-2.jpg",
+    "/fotoshafa7-3.jpg",
+  ],
+
+  "Event Committee – Match Scheduling and Coordination": [
+    "/fotoshafa8.jpg",
+    "/fotoshafa8-2.jpg",
+    "/fotoshafa8-3.jpg",
+  ],
+
+  "Sub-Coordinator of the Equipment and Logistics": [
+    "/fotoshafa9.jpg",
+    "/fotoshafa9-2.jpg",
+    "/fotoshafa9-3.jpg",
+  ],
+
+  "Event Coordinator & Executor": [
+    "/fotoshafa10.jpg",
+    "/fotoshafa10-2.jpg",
+    "/fotoshafa10-3.jpg",
+  ],
+
+  "Staff of Documentation Decoration Design Division": [
+    "/fotoshafa11.jpg",
+    "/fotoshafa11-2.jpg",
+    "/fotoshafa11-3.jpg",
+  ],
+
+  "Secretary & Master of Ceremony": [
+    "/fotoshafa12.jpg",
+    "/fotoshafa12-2.jpg",
+    "/fotoshafa12-3.jpg",
+  ],
+
+  "Staff of Security Division": [
+    "/fotoshafa13.jpg",
+    "/fotoshafa13-2.jpg",
+    "/fotoshafa13-3.jpg",
+  ],
+
+  Executor: [
+    "/fotoshafa14.jpg",
+    "/fotoshafa14-2.jpg",
+    "/fotoshafa14-3.jpg",
+  ],
 }
 
 export default function Experience() {
