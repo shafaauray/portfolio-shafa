@@ -223,21 +223,17 @@ const documentationMap = {
   ],
 
   "Sub-Coordinator of the Logistics and Consumption": [
-    "/fotoshafa7.jpg",
-    "/fotoshafa7-2.jpg",
-    "/fotoshafa7-3.jpg",
+    "/gmokc1.jpeg",
+    "/gmokc2.jpeg",
   ],
 
   "Event Committee – Match Scheduling and Coordination": [
-    "/fotoshafa8.jpg",
-    "/fotoshafa8-2.jpg",
-    "/fotoshafa8-3.jpg",
+    "/porseni1.jpeg",
+    "/porseni2.jpeg",
   ],
 
   "Sub-Coordinator of the Equipment and Logistics": [
-    "/fotoshafa9.jpg",
-    "/fotoshafa9-2.jpg",
-    "/fotoshafa9-3.jpg",
+    "/panitiacapstone.jpeg",
   ],
 
   "Event Coordinator & Executor": [
