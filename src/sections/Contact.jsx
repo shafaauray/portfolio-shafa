@@ -39,11 +39,35 @@ function Contact() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <SocialButton icon={<FaInstagram />} label="Instagram" href="https://www.instagram.com/shafaauray/?hl=id" />
-            <SocialButton icon={<FaGithub />} label="GitHub" href="https://github.com/shafaauray" />
-            <SocialButton icon={<FaLinkedin />} label="LinkedIn" href="https://www.linkedin.com/in/shafaaurayogadiasa/" />
-            <SocialButton icon={<FaWhatsapp />} label="WhatsApp" href="https://wa.me/qr/XSBCJJHKEDTUI1" />
-            <SocialButton icon={<FaEnvelope />} label="Email" href="mailto:shafaaurayogadiasa@gmail.com" />
+            <SocialButton
+              icon={<FaInstagram />}
+              label="Instagram"
+              href="https://www.instagram.com/shafaauray/?hl=id"
+            />
+
+            <SocialButton
+              icon={<FaGithub />}
+              label="GitHub"
+              href="https://github.com/shafaauray"
+            />
+
+            <SocialButton
+              icon={<FaLinkedin />}
+              label="LinkedIn"
+              href="https://www.linkedin.com/in/shafaaurayogadiasa/"
+            />
+
+            <SocialButton
+              icon={<FaWhatsapp />}
+              label="WhatsApp"
+              href="https://wa.me/qr/XSBCJJHKEDTUI1"
+            />
+
+            <SocialButton
+              icon={<FaEnvelope />}
+              label="Email"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=shafaaurayogadiasa@gmail.com"
+            />
           </div>
         </motion.div>
 
