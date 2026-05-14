@@ -89,7 +89,7 @@ function Contact() {
           <input
             type="hidden"
             name="_subject"
-            value="New Portfolio Contact Message"
+            value="New Portfolio Message"
           />
 
           <input
@@ -102,6 +102,12 @@ function Contact() {
             type="hidden"
             name="_template"
             value="table"
+          />
+
+          <input
+            type="hidden"
+            name="_next"
+            value="https://portfolio-shafa.vercel.app/"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
