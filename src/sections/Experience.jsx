@@ -237,9 +237,8 @@ const documentationMap = {
   ],
 
   "Event Coordinator & Executor": [
-    "/fotoshafa10.jpg",
-    "/fotoshafa10-2.jpg",
-    "/fotoshafa10-3.jpg",
+    "/pbub1.jpeg",
+    "/pbub2.jpeg",
   ],
 
   "Staff of Documentation Decoration Design Division": [
@@ -253,9 +252,8 @@ const documentationMap = {
   ],
 
   "Staff of Security Division": [
-    "/fotoshafa13.jpg",
-    "/fotoshafa13-2.jpg",
-    "/fotoshafa13-3.jpg",
+    "/icd1.jpeg",
+    "/icd2.jpeg",
   ],
 
   Executor: [
