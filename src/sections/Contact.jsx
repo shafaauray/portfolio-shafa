@@ -1,4 +1,7 @@
 import { motion } from "framer-motion"
+import { useRef } from "react"
+import emailjs from "@emailjs/browser"
+
 import {
   FaInstagram,
   FaGithub,
@@ -8,6 +11,30 @@ import {
 } from "react-icons/fa"
 
 function Contact() {
+  const formRef = useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    emailjs
+      .sendForm(
+        "service_xtes4fa",
+        "template_ghppzdk",
+        formRef.current,
+        "x9yFf09iD6ZDwbfo6"
+      )
+      .then(
+        () => {
+          alert("Message sent successfully ✨")
+          formRef.current.reset()
+        },
+        (error) => {
+          console.log(error.text)
+          alert("Failed to send message. Please try again.")
+        }
+      )
+  }
+
   return (
     <section
       id="contact"
@@ -73,71 +100,46 @@ function Contact() {
 
         {/* RIGHT — FORM */}
         <motion.form
+          ref={formRef}
+          onSubmit={sendEmail}
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          action="https://formsubmit.co/shafaaurayogadiasa@gmail.com"
-          method="POST"
           className="bg-card border border-gold/20 rounded-3xl p-10 backdrop-blur-xl shadow-[0_0_40px_rgba(212,175,55,0.15)]"
         >
           <h3 className="text-3xl font-semibold mb-8 text-gold">
             Get In Touch
           </h3>
 
-          {/* HIDDEN CONFIG */}
-          <input
-            type="hidden"
-            name="_subject"
-            value="New Portfolio Message"
-          />
-
-          <input
-            type="hidden"
-            name="_captcha"
-            value="false"
-          />
-
-          <input
-            type="hidden"
-            name="_template"
-            value="table"
-          />
-
-          <input
-            type="hidden"
-            name="_next"
-            value="https://portfolio-shafa.vercel.app/"
-          />
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <Input
               type="text"
-              name="First Name"
+              name="first_name"
               placeholder="First Name"
             />
 
             <Input
               type="text"
-              name="Last Name"
+              name="last_name"
               placeholder="Last Name"
             />
 
             <Input
               type="email"
-              name="Email"
+              name="email"
               placeholder="Email Address"
             />
 
             <Input
               type="text"
-              name="Phone"
+              name="phone"
               placeholder="Phone No."
             />
           </div>
 
           <textarea
-            name="Message"
+            name="message"
             placeholder="Your Message"
             rows="5"
             required
