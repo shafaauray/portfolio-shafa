@@ -19,7 +19,7 @@ function Contact() {
     emailjs
       .sendForm(
         "service_xtes4fa",
-        "template_ghppzdk",
+        "template_imzlp9c",
         formRef.current,
         "x9yFf09iD6ZDwbfo6"
       )
