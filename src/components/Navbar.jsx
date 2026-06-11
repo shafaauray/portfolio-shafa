@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
-import ThemeToggle from "./ThemeToggle"
 
 const sections = [
   "about",
   "skills",
   "experience",
   "education",
-  "certificates",
+  "certificates", // ✅ BARU
   "achievements",
   "news",
   "projects",
@@ -22,10 +21,8 @@ export default function Navbar() {
     const handleScroll = () => {
       sections.forEach((id) => {
         const element = document.getElementById(id)
-
         if (element) {
           const rect = element.getBoundingClientRect()
-
           if (rect.top <= 120 && rect.bottom >= 120) {
             setActive(id)
           }
@@ -34,7 +31,6 @@ export default function Navbar() {
     }
 
     window.addEventListener("scroll", handleScroll)
-
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -69,23 +65,15 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* RIGHT SIDE */}
-        <div className="flex items-center gap-4">
-
-          {/* THEME TOGGLE */}
-          <ThemeToggle />
-
-          {/* MOBILE HAMBURGER */}
-          <div className="md:hidden">
-            <button onClick={() => setOpen(!open)}>
-              {open ? (
-                <X className="text-gold" size={24} />
-              ) : (
-                <Menu className="text-gold" size={24} />
-              )}
-            </button>
-          </div>
-
+        {/* MOBILE HAMBURGER */}
+        <div className="md:hidden">
+          <button onClick={() => setOpen(!open)}>
+            {open ? (
+              <X className="text-gold" size={24} />
+            ) : (
+              <Menu className="text-gold" size={24} />
+            )}
+          </button>
         </div>
       </div>
 
