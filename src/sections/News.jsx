@@ -120,89 +120,90 @@ const newsData = [
   },
 ]
 
-// helper: chunk per 6 item
-const chunkedNews = []
-for (let i = 0; i < newsData.length; i += 6) {
-  chunkedNews.push(newsData.slice(i, i + 6))
-}
-
 export default function News() {
   return (
-    <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
+    <section
+      id="news"
+      className="py-28 px-6 md:px-20 bg-brownDark"
+    >
       <div className="max-w-7xl mx-auto">
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl font-serifDisplay text-gold">
+          <h2 className="text-4xl font-serifDisplay text-gold mb-4">
             Media & Highlights
           </h2>
-          <p className="text-cream/70 max-w-xl mx-auto mt-2">
-            Publikasi dan liputan media tentang
-            <span className="font-semibold text-gold">
-              {" "}
-              Shafa Aura Yogadiasa
-            </span>
-            .
+
+          <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed">
+            Publications, media coverage, and featured stories highlighting
+            achievements, community contributions, and academic activities of
+            <span className="text-gold font-medium">
+              {" "}Shafa Aura Yogadiasa
+            </span>.
           </p>
         </motion.div>
 
-        {/* SLIDER */}
-        <div className="overflow-x-auto scroll-smooth">
-          <div className="flex gap-8 snap-x snap-mandatory">
-            {chunkedNews.map((group, slideIndex) => (
-              <div
-                key={slideIndex}
-                className="min-w-full snap-start"
-              >
-                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                  {group.map((item, i) => (
-                    <motion.a
-                      key={i}
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: i * 0.1 }}
-                      viewport={{ once: true }}
-                      className="group block bg-card border border-gold/20 rounded-3xl overflow-hidden shadow-lg hover:shadow-goldGlow transition-all duration-300"
-                    >
-                      <div className="w-full h-48 overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-
-                      <div className="p-6">
-                        <p className="text-xs text-gold/70 font-medium">
-                          {item.date} • {item.source}
-                        </p>
-
-                        <h3 className="text-lg font-semibold text-gold mt-2 mb-2">
-                          {item.title}
-                        </h3>
-
-                        <p className="text-sm text-cream/70 line-clamp-3">
-                          {item.description}
-                        </p>
-
-                        <div className="mt-4 text-sm font-semibold text-gold underline">
-                          Read Full Story →
-                        </div>
-                      </div>
-                    </motion.a>
-                  ))}
-                </div>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {newsData.map((item, i) => (
+            <motion.a
+              key={i}
+              href={item.link}
+              target="_blank"
+              rel="noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: i * 0.04,
+              }}
+              whileHover={{
+                y: -6,
+              }}
+              className="group bg-card border border-gold/15 rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300"
+            >
+              <div className="overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-52 object-cover group-hover:scale-[1.04] transition-transform duration-700"
+                />
               </div>
-            ))}
-          </div>
+
+              <div className="p-5">
+
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs text-gold/70">
+                    {item.date}
+                  </span>
+
+                  <span className="text-xs text-cream/50">
+                    {item.source}
+                  </span>
+                </div>
+
+                <h3 className="text-lg font-semibold text-gold leading-snug mb-3">
+                  {item.title}
+                </h3>
+
+                <p className="text-sm text-cream/70 leading-relaxed line-clamp-3">
+                  {item.description}
+                </p>
+
+                <div className="mt-5 text-sm font-medium text-gold opacity-80 group-hover:opacity-100 transition">
+                  Read Full Story →
+                </div>
+
+              </div>
+            </motion.a>
+          ))}
         </div>
+
       </div>
     </section>
   )
