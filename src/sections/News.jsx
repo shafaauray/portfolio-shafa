@@ -1,8 +1,9 @@
 import { motion } from "framer-motion"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper/modules"
+import { FreeMode } from "swiper/modules"
 
 import "swiper/css"
+import "swiper/css/free-mode"
 
 const newsData = [
   {
@@ -71,7 +72,7 @@ const newsData = [
   {
     title: "KKN: Edukasi Pencegahan Phishing dan Berita Hoax",
     description:
-      "Edukasi Bijak dalam Penggunaan Internet: Pencegahan Phishing oleh Shafa Aura Yogadiasa untuk adik-adik sekolah di Sumatera Selatan.",
+      "Edukasi Bijak dalam Penggunaan Internet: Pencegahan Phishing oleh Shafa Aura Yogadiasa untuk adik-adik sekolah di Sumatera Selatan",
     date: "Lempuing Jaya, 2025",
     image: "/shafakkn1.jpeg",
     link: "https://www.instagram.com/p/DQwMDEJDz9M/?hl=id&img_index=4",
@@ -89,7 +90,7 @@ const newsData = [
   {
     title: "UGM Karate Borong 12 Medali di International Silent Knight Karate Cup",
     description:
-      "UKM Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024 di Malaysia.",
+      "Unit Kegiatan Mahasiswa (UKM) Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024.",
     date: "March 14, 2024",
     image: "/skm.webp",
     link: "https://ugm.ac.id/id/berita/karate-ugm-borong-12-medali-kejuaraan-silent-knight-karate-cup-di-malaysia/",
@@ -116,7 +117,7 @@ const newsData = [
   {
     title: "UGM Sabet 20 Medali di Kompetisi Karate Internasional di Magelang",
     description:
-      "UGM berhasil membawa pulang 20 medali dari kompetisi karate internasional di Magelang.",
+      "UGM berhasil membawa pulang 20 medali dari ajang kompetisi karate internasional.",
     date: "September 2023",
     image: "/magelang.jpg",
     link: "https://baliportalnews.com/2023/09/karate-ugm-sabet-20-medali-dari-kompetisi-karate-internasional-di-magelang/",
@@ -129,8 +130,8 @@ function NewsCard({ item }) {
     <motion.a
       href={item.link}
       target="_blank"
-      rel="noreferrer"
-      whileHover={{ scale: 1.02 }}
+      rel="noopener noreferrer"
+      whileHover={{ y: -8 }}
       transition={{ duration: 0.25 }}
       className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
     >
@@ -138,8 +139,7 @@ function NewsCard({ item }) {
         <img
           src={item.image}
           alt={item.title}
-          loading="lazy"
-          className="w-full h-56 object-cover transition duration-700 group-hover:scale-105"
+          className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-105"
         />
 
         <div className="absolute top-4 left-4">
@@ -149,16 +149,16 @@ function NewsCard({ item }) {
         </div>
       </div>
 
-      <div className="p-6 flex flex-col min-h-[210px]">
+      <div className="p-6">
         <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
           {item.date}
         </p>
 
-        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2 min-h-[56px]">
+        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
           {item.title}
         </h3>
 
-        <p className="text-sm text-cream/70 leading-relaxed line-clamp-4 flex-1">
+        <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
           {item.description}
         </p>
       </div>
@@ -170,9 +170,10 @@ export default function News() {
   return (
     <section
       id="news"
-      className="py-28 px-6 md:px-12 xl:px-20 bg-brownDark overflow-hidden"
+      className="py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,31 +194,23 @@ export default function News() {
         </motion.div>
 
         <Swiper
-          modules={[Autoplay]}
-          loop
-          grabCursor
-          speed={700}
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
+          modules={[FreeMode]}
+          freeMode={true}
+          grabCursor={true}
+          spaceBetween={24}
+          slidesPerView={1.1}
           breakpoints={{
-            0: {
-              slidesPerView: 1.1,
-              spaceBetween: 16,
-            },
             640: {
-              slidesPerView: 1.3,
-              spaceBetween: 20,
+              slidesPerView: 1.5,
             },
             768: {
               slidesPerView: 2,
-              spaceBetween: 24,
+            },
+            1024: {
+              slidesPerView: 2.5,
             },
             1280: {
               slidesPerView: 3,
-              spaceBetween: 24,
             },
           }}
         >
@@ -227,6 +220,7 @@ export default function News() {
             </SwiperSlide>
           ))}
         </Swiper>
+
       </div>
     </section>
   )
