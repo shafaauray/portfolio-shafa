@@ -121,149 +121,142 @@ const newsData = [
   },
 ]
 
-// helper: chunk per 6 item
-const chunkedNews = []
-for (let i = 0; i < newsData.length; i += 6) {
-  chunkedNews.push(newsData.slice(i, i + 6))
-}
+// // helper: chunk per 6 item
+// const chunkedNews = []
+// for (let i = 0; i < newsData.length; i += 6) {
+//   chunkedNews.push(newsData.slice(i, i + 6))
+// }
 
 export default function News() {
-  useEffect(() => {
-  const slider = sliderRef.current
-
-  if (!slider) return
-
-  const interval = setInterval(() => {
-    const maxScroll = slider.scrollWidth - slider.clientWidth
-    const nextScroll = slider.scrollLeft + slider.clientWidth
-
-    if (nextScroll >= maxScroll - 10) {
-      slider.scrollTo({
-        left: 0,
-        behavior: "smooth",
-      })
-    } else {
-      slider.scrollTo({
-        left: nextScroll,
-        behavior: "smooth",
-      })
-    }
-  }, 5000) // pindah tiap 5 detik
-
-  return () => clearInterval(interval)
-}, [])
   const sliderRef = useRef(null)
+
+  useEffect(() => {
+    const slider = sliderRef.current
+
+    if (!slider) return
+
+    let animationFrame
+
+    const speed = 0.4
+
+    const autoScroll = () => {
+      if (
+        slider.scrollLeft >=
+        slider.scrollWidth - slider.clientWidth
+      ) {
+        slider.scrollLeft = 0
+      } else {
+        slider.scrollLeft += speed
+      }
+
+      animationFrame = requestAnimationFrame(autoScroll)
+    }
+
+    animationFrame = requestAnimationFrame(autoScroll)
+
+    return () => cancelAnimationFrame(animationFrame)
+  }, [])
+
   return (
-  <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
-    <div className="max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="text-center mb-14"
-      >
-        <h2 className="text-4xl md:text-5xl font-serifDisplay text-gold">
-          Media & Highlights
-        </h2>
+    <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <h2 className="text-4xl md:text-5xl font-serifDisplay text-gold">
+            Media & Highlights
+          </h2>
 
-        <p className="text-cream/70 max-w-xl mx-auto mt-3 leading-relaxed">
-          Media Coverage & Publications Featuring
-          <span className="font-semibold text-gold">
-            {" "}Shafa Aura Yogadiasa
-          </span>
-          .
-        </p>
-      </motion.div>
+          <p className="text-cream/70 max-w-xl mx-auto mt-3 leading-relaxed">
+            Media Coverage & Publications Featuring
+            <span className="font-semibold text-gold">
+              {" "}Shafa Aura Yogadiasa
+            </span>
+            .
+          </p>
+        </motion.div>
 
-      <div
-  ref={sliderRef}
-  className="
-    overflow-x-auto
-    scroll-smooth
-    snap-x
-    snap-mandatory
-    pb-4
-    scrollbar-hide
-  "
->
-        <div className="flex gap-8">
-          {chunkedNews.map((group, slideIndex) => (
-            <div
-              key={slideIndex}
-              className="min-w-full snap-center"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {group.map((item, i) => (
-                  <motion.a
-                    key={i}
-                    href={item.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: i * 0.08,
-                    }}
-                    viewport={{ once: true }}
+        <div
+          ref={sliderRef}
+          className="
+            overflow-x-auto
+            scrollbar-hide
+            pb-4
+          "
+        >
+          <div className="flex gap-8 w-max px-2">
+            {newsData.map((item, i) => (
+              <motion.a
+                key={i}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.5,
+                  delay: i * 0.08,
+                }}
+                viewport={{ once: true }}
+                className="
+                  group
+                  flex-shrink-0
+                  w-[340px]
+                  flex
+                  flex-col
+                  overflow-hidden
+                  rounded-3xl
+                  bg-card
+                  border border-gold/20
+                  shadow-lg
+                  transition-all
+                  duration-500
+                  hover:-translate-y-2
+                  hover:border-gold/40
+                  hover:shadow-goldGlow
+                "
+              >
+                <div className="overflow-hidden aspect-[16/10]">
+                  <img
+                    src={item.image}
+                    alt={item.title}
                     className="
-                      group
+                      w-full
                       h-full
-                      flex
-                      flex-col
-                      overflow-hidden
-                      rounded-3xl
-                      bg-card
-                      border border-gold/20
-                      shadow-lg
-                      transition-all
-                      duration-500
-                      hover:-translate-y-2
-                      hover:border-gold/40
-                      hover:shadow-goldGlow
+                      object-cover
+                      transition-transform
+                      duration-700
+                      group-hover:scale-105
                     "
-                  >
-                    <div className="overflow-hidden aspect-[16/10]">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="
-                          w-full
-                          h-full
-                          object-cover
-                          transition-transform
-                          duration-700
-                          group-hover:scale-105
-                        "
-                      />
-                    </div>
+                  />
+                </div>
 
-                    <div className="p-6 flex flex-col flex-grow">
-                      <p className="text-xs text-gold/70 font-medium uppercase tracking-wide">
-                        {item.date} • {item.source}
-                      </p>
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-xs text-gold/70 font-medium uppercase tracking-wide">
+                    {item.date} • {item.source}
+                  </p>
 
-                      <h3 className="text-lg font-semibold text-gold mt-3 mb-3 line-clamp-2 leading-snug">
-                        {item.title}
-                      </h3>
+                  <h3 className="text-lg font-semibold text-gold mt-3 mb-3 line-clamp-2 leading-snug">
+                    {item.title}
+                  </h3>
 
-                      <p className="text-sm text-cream/70 line-clamp-4 leading-relaxed flex-grow">
-                        {item.description}
-                      </p>
+                  <p className="text-sm text-cream/70 line-clamp-4 leading-relaxed flex-grow">
+                    {item.description}
+                  </p>
 
-                      <div className="mt-6 text-sm font-semibold text-gold flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
-                        Read Full Story →
-                      </div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          ))}
+                  <div className="mt-6 text-sm font-semibold text-gold flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
+                    Read Full Story →
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-)
+    </section>
+  )
 }
