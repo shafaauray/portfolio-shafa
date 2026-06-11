@@ -71,8 +71,8 @@ const newsData = [
   {
     title: "KKN: Edukasi Pencegahan Phishing dan Berita Hoax",
     description:
-      "Edukasi Bijak dalam Penggunaan Internet: Pencegahan Phishing oleh Shafa Aura Yogadiasa untuk adik-adik sekolah di Sumatera Selatan",
-    date: "Lempuing Jaya,2025",
+      "Edukasi Bijak dalam Penggunaan Internet: Pencegahan Phishing oleh Shafa Aura Yogadiasa untuk adik-adik sekolah di Sumatera Selatan.",
+    date: "Lempuing Jaya, 2025",
     image: "/shafakkn1.jpeg",
     link: "https://www.instagram.com/p/DQwMDEJDz9M/?hl=id&img_index=4",
     source: "Instagram",
@@ -89,7 +89,7 @@ const newsData = [
   {
     title: "UGM Karate Borong 12 Medali di International Silent Knight Karate Cup",
     description:
-      "Unit Kegiatan Mahasiswa (UKM) Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024 di Titiwangsa Stadium, Malaysia, termasuk lima medali emas, empat perak, dan tiga perunggu — sebuah prestasi kerja keras yang membanggakan bagi tim UGM.",
+      "UKM Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024 di Malaysia.",
     date: "March 14, 2024",
     image: "/skm.webp",
     link: "https://ugm.ac.id/id/berita/karate-ugm-borong-12-medali-kejuaraan-silent-knight-karate-cup-di-malaysia/",
@@ -98,7 +98,7 @@ const newsData = [
   {
     title: "UGM Wins 23 Medals – Official UGM News",
     description:
-      "UGM crowned 3rd overall at 2023 Brawijaya University Karate Championship. Shafa Aura Yogadiasa contributed to the medal haul with her outstanding performance in the competition.",
+      "UGM crowned 3rd overall at 2023 Brawijaya University Karate Championship.",
     date: "November 2023",
     image: "/ugmwinsub.webp",
     link: "https://ugm.ac.id/en/news/ugm-wins-23-medals-crowned-3rd-overall-in-2023-brawijaya-university-karate-championship/",
@@ -107,7 +107,7 @@ const newsData = [
   {
     title: "Kabar Baik dari Malaysia",
     description:
-      "Tim Kata Universitas Gadjah Mada memborong medali di Malaysia termasuk prestasi internasional. Shafa Aura Yogadiasa bersama dua rekan timnya...",
+      "Tim Kata Universitas Gadjah Mada memborong medali di Malaysia termasuk prestasi internasional.",
     date: "2023",
     image: "/shafa3sk.webp",
     link: "https://www.instagram.com/p/C4VTbkDvWFy/?hl=id&img_index=7",
@@ -116,7 +116,7 @@ const newsData = [
   {
     title: "UGM Sabet 20 Medali di Kompetisi Karate Internasional di Magelang",
     description:
-      "UGM berhasil membawa pulang 20 medali dari ajang kompetisi karate internasional yang digelar di Magelang, termasuk prestasi Shafa Aura Yogadiasa dalam kategori U21 Kata Perorangan Putri.",
+      "UGM berhasil membawa pulang 20 medali dari kompetisi karate internasional di Magelang.",
     date: "September 2023",
     image: "/magelang.jpg",
     link: "https://baliportalnews.com/2023/09/karate-ugm-sabet-20-medali-dari-kompetisi-karate-internasional-di-magelang/",
@@ -124,29 +124,22 @@ const newsData = [
   },
 ]
 
-const desktopSlides = []
-for (let i = 0; i < newsData.length; i += 6) {
-  desktopSlides.push(newsData.slice(i, i + 6))
-}
-
-const mobileSlides = []
-for (let i = 0; i < newsData.length; i += 2) {
-  mobileSlides.push(newsData.slice(i, i + 2))
-}
 function NewsCard({ item }) {
   return (
     <motion.a
       href={item.link}
       target="_blank"
       rel="noreferrer"
-      whileHover={{ y: -6 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.25 }}
       className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
     >
       <div className="relative overflow-hidden">
         <img
           src={item.image}
           alt={item.title}
-          className="w-full h-56 object-cover group-hover:scale-105 transition duration-700"
+          loading="lazy"
+          className="w-full h-56 object-cover transition duration-700 group-hover:scale-105"
         />
 
         <div className="absolute top-4 left-4">
@@ -156,30 +149,30 @@ function NewsCard({ item }) {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-6 flex flex-col min-h-[210px]">
         <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
           {item.date}
         </p>
 
-        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
+        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2 min-h-[56px]">
           {item.title}
         </h3>
 
-        <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
+        <p className="text-sm text-cream/70 leading-relaxed line-clamp-4 flex-1">
           {item.description}
         </p>
       </div>
     </motion.a>
   )
 }
+
 export default function News() {
   return (
     <section
       id="news"
-      className="py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
+      className="py-28 px-6 md:px-12 xl:px-20 bg-brownDark overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -199,54 +192,41 @@ export default function News() {
           </p>
         </motion.div>
 
-       {/* MOBILE */}
-<div className="md:hidden">
-  <Swiper
-    modules={[Autoplay]}
-    loop
-    speed={700}
-    autoplay={{
-      delay: 3000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    }}
-  >
-    {mobileSlides.map((group, slideIndex) => (
-      <SwiperSlide key={slideIndex}>
-        <div className="grid gap-6">
-          {group.map((item, i) => (
-            <NewsCard key={i} item={item} />
+        <Swiper
+          modules={[Autoplay]}
+          loop
+          grabCursor
+          speed={700}
+          autoplay={{
+            delay: 3500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          breakpoints={{
+            0: {
+              slidesPerView: 1.1,
+              spaceBetween: 16,
+            },
+            640: {
+              slidesPerView: 1.3,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            1280: {
+              slidesPerView: 3,
+              spaceBetween: 24,
+            },
+          }}
+        >
+          {newsData.map((item, index) => (
+            <SwiperSlide key={index} className="h-auto">
+              <NewsCard item={item} />
+            </SwiperSlide>
           ))}
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-
-{/* TABLET & DESKTOP */}
-<div className="hidden md:block">
-  <Swiper
-    modules={[Autoplay]}
-    loop
-    speed={700}
-    autoplay={{
-      delay: 4000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    }}
-  >
-    {desktopSlides.map((group, slideIndex) => (
-      <SwiperSlide key={slideIndex}>
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {group.map((item, i) => (
-            <NewsCard key={i} item={item} />
-          ))}
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</div>
-
+        </Swiper>
       </div>
     </section>
   )
