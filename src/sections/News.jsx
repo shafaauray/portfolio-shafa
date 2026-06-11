@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { useEffect, useRef } from "react"
 
 const newsData = [
   {
@@ -127,6 +128,31 @@ for (let i = 0; i < newsData.length; i += 6) {
 }
 
 export default function News() {
+  useEffect(() => {
+  const slider = sliderRef.current
+
+  if (!slider) return
+
+  const interval = setInterval(() => {
+    const maxScroll = slider.scrollWidth - slider.clientWidth
+    const nextScroll = slider.scrollLeft + slider.clientWidth
+
+    if (nextScroll >= maxScroll - 10) {
+      slider.scrollTo({
+        left: 0,
+        behavior: "smooth",
+      })
+    } else {
+      slider.scrollTo({
+        left: nextScroll,
+        behavior: "smooth",
+      })
+    }
+  }, 5000) // pindah tiap 5 detik
+
+  return () => clearInterval(interval)
+}, [])
+  const sliderRef = useRef(null)
   return (
   <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
     <div className="max-w-7xl mx-auto">
@@ -142,7 +168,7 @@ export default function News() {
         </h2>
 
         <p className="text-cream/70 max-w-xl mx-auto mt-3 leading-relaxed">
-          Publikasi dan liputan media tentang
+          Media Coverage & Publications Featuring
           <span className="font-semibold text-gold">
             {" "}Shafa Aura Yogadiasa
           </span>
@@ -150,7 +176,17 @@ export default function News() {
         </p>
       </motion.div>
 
-      <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4">
+      <div
+  ref={sliderRef}
+  className="
+    overflow-x-auto
+    scroll-smooth
+    snap-x
+    snap-mandatory
+    pb-4
+    scrollbar-hide
+  "
+>
         <div className="flex gap-8">
           {chunkedNews.map((group, slideIndex) => (
             <div
