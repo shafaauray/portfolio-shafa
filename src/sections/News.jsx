@@ -1,9 +1,8 @@
 import { motion } from "framer-motion"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, Grid } from "swiper/modules"
+import { Autoplay } from "swiper/modules"
 
 import "swiper/css"
-import "swiper/css/grid"
 
 const newsData = [
   {
@@ -27,10 +26,10 @@ const newsData = [
   {
     title: "Medali Perak & Perunggu di Malaysia",
     description:
-      "Mahasiswa UGM, Shafa Aura Yogadiasa meraih medali perak dan perunggu pada Silent Knight Karate Cup 2024 di Malaysia.",
+      "Mahasiswa UGM, Shafa Aura Yogadiasa meraih medali perak dan perunggu pada Silent Knight International Karate Cup 2024 di Malaysia.",
     date: "2024",
     image: "/shafaskteknik.jpg",
-    link: "https://ft.ugm.ac.id/mahasiswa-ugm-raih-medali-perak-dan-perunggu-pada-kejuaraan-silent-knight-karate-cup-2024-di-malaysia/",
+    link: "https://ft.ugm.ac.id/mahasiswa-ugm-raih-medali-perak-dan-perunggu-pada-kejuaraan-silent-knight-international-karate-cup-2024-di-malaysia/",
     source: "FT UGM",
   },
   {
@@ -125,6 +124,54 @@ const newsData = [
   },
 ]
 
+const desktopSlides = []
+for (let i = 0; i < newsData.length; i += 6) {
+  desktopSlides.push(newsData.slice(i, i + 6))
+}
+
+const mobileSlides = []
+for (let i = 0; i < newsData.length; i += 2) {
+  mobileSlides.push(newsData.slice(i, i + 2))
+}
+function NewsCard({ item }) {
+  return (
+    <motion.a
+      href={item.link}
+      target="_blank"
+      rel="noreferrer"
+      whileHover={{ y: -6 }}
+      className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
+    >
+      <div className="relative overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full h-56 object-cover group-hover:scale-105 transition duration-700"
+        />
+
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 rounded-full text-xs bg-black/60 backdrop-blur-md text-gold border border-gold/20">
+            {item.source}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
+          {item.date}
+        </p>
+
+        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
+          {item.title}
+        </h3>
+
+        <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
+          {item.description}
+        </p>
+      </div>
+    </motion.a>
+  )
+}
 export default function News() {
   return (
     <section
@@ -152,81 +199,53 @@ export default function News() {
           </p>
         </motion.div>
 
-        <Swiper
-          modules={[Autoplay, Grid]}
-          loop={true}
-          grabCursor={true}
-          speed={8000}
-          autoplay={{
-            delay: 1,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          spaceBetween={24}
-          breakpoints={{
-            0: {
-              slidesPerView: 1,
-              grid: {
-                rows: 2,
-                fill: "row",
-              },
-            },
-
-            768: {
-              slidesPerView: 2,
-              grid: {
-                rows: 1,
-              },
-            },
-
-            1280: {
-              slidesPerView: 3,
-              grid: {
-                rows: 1,
-              },
-            },
-          }}
-        >
-          {newsData.map((item, i) => (
-            <SwiperSlide key={i}>
-              <motion.a
-                href={item.link}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ y: -8 }}
-                className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-56 object-cover group-hover:scale-105 transition duration-700"
-                  />
-
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full text-xs bg-black/60 backdrop-blur-md text-gold border border-gold/20">
-                      {item.source}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
-                    {item.date}
-                  </p>
-
-                  <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.a>
-            </SwiperSlide>
+       {/* MOBILE */}
+<div className="md:hidden">
+  <Swiper
+    modules={[Autoplay]}
+    loop
+    speed={700}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    }}
+  >
+    {mobileSlides.map((group, slideIndex) => (
+      <SwiperSlide key={slideIndex}>
+        <div className="grid gap-6">
+          {group.map((item, i) => (
+            <NewsCard key={i} item={item} />
           ))}
-        </Swiper>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+
+{/* TABLET & DESKTOP */}
+<div className="hidden md:block">
+  <Swiper
+    modules={[Autoplay]}
+    loop
+    speed={700}
+    autoplay={{
+      delay: 4000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    }}
+  >
+    {desktopSlides.map((group, slideIndex) => (
+      <SwiperSlide key={slideIndex}>
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {group.map((item, i) => (
+            <NewsCard key={i} item={item} />
+          ))}
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
       </div>
     </section>
