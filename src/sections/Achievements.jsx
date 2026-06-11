@@ -63,58 +63,130 @@ const achievementsData = [
   },
 ]
 
+function getBadge(rank) {
+  if (rank === "🥇") {
+    return {
+      text: "GOLD",
+      className:
+        "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+    }
+  }
+
+  if (rank === "🥈") {
+    return {
+      text: "SILVER",
+      className:
+        "bg-gray-400/10 text-gray-300 border-gray-400/20",
+    }
+  }
+
+  return {
+    text: "BRONZE",
+    className:
+      "bg-orange-500/10 text-orange-400 border-orange-500/20",
+  }
+}
+
 export default function Achievements() {
   return (
     <section
       id="achievements"
       className="relative py-28 px-6 md:px-20 bg-brownDark"
     >
+      {/* BATIK BACKGROUND */}
       <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.03]" />
 
+      {/* GOLD GLOW */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gold/5 blur-[180px]" />
+
       <div className="relative max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+        {/* SECTION HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-4xl font-serifDisplay font-bold text-gold mb-12"
+          className="mb-14"
         >
-          Achievements
-        </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-serifDisplay font-bold text-gold mb-4">
+            Achievements
+          </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {achievementsData.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              viewport={{ once: true }}
-              className="group bg-card border border-gold/20 p-6 rounded-2xl hover:shadow-goldGlow transition-all duration-300"
-            >
-              <div className="flex items-start gap-4">
-                {/* RANK */}
-                <div className="text-3xl">
-                  {item.rank}
+          <div className="w-24 h-[2px] bg-gold/50 rounded-full" />
+
+          <p className="mt-5 text-cream/60 max-w-2xl">
+            A collection of national and international achievements that
+            reflect discipline, consistency, and commitment throughout my
+            karate journey.
+          </p>
+        </motion.div>
+
+        {/* ACHIEVEMENTS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {achievementsData.map((item, i) => {
+            const badge = getBadge(item.rank)
+
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: i * 0.05,
+                }}
+                whileHover={{
+                  y: -5,
+                }}
+                className="
+                  group
+                  bg-card/90
+                  border border-gold/10
+                  rounded-xl
+                  p-5
+                  backdrop-blur-sm
+                  transition-all duration-300
+                  hover:border-gold/30
+                  hover:shadow-[0_10px_30px_rgba(212,175,55,0.08)]
+                "
+              >
+                {/* BADGE */}
+                <div
+                  className={`
+                    inline-flex
+                    items-center
+                    px-3
+                    py-1
+                    rounded-full
+                    text-[11px]
+                    font-semibold
+                    tracking-widest
+                    border
+                    mb-4
+                    ${badge.className}
+                  `}
+                >
+                  {badge.text}
                 </div>
 
-                {/* CONTENT */}
-                <div>
-                  <h3 className="text-cream font-semibold text-lg leading-snug">
-                    {item.title}
-                  </h3>
+                {/* TITLE */}
+                <h3 className="text-cream font-semibold leading-snug text-[15px] md:text-base">
+                  {item.title}
+                </h3>
 
-                  <p className="text-gold/90 font-medium mt-1">
-                    {item.event}
-                  </p>
+                {/* EVENT */}
+                <p className="text-gold text-sm mt-3 font-medium leading-relaxed">
+                  {item.event}
+                </p>
 
-                  <p className="text-cream/60 text-sm mt-1">
-                    {item.location}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                {/* LOCATION */}
+                <p className="text-cream/50 text-sm mt-2">
+                  {item.location}
+                </p>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
