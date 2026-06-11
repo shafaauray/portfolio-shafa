@@ -1,4 +1,8 @@
 import { motion } from "framer-motion"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Autoplay } from "swiper/modules"
+
+import "swiper/css"
 
 const newsData = [
   {
@@ -124,9 +128,9 @@ export default function News() {
   return (
     <section
       id="news"
-      className="py-24 px-6 md:px-12 bg-brownDark"
+      className="py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -135,77 +139,81 @@ export default function News() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl font-serifDisplay text-gold mb-4">
+          <h2 className="text-4xl font-serifDisplay text-gold">
             Media & Highlights
           </h2>
 
-          <div className="w-20 h-px bg-gold/40 mx-auto mb-6" />
-
-          <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed">
-            Publications, media coverage, and featured stories highlighting
-            achievements, community contributions, and academic activities of
-            <span className="text-gold font-medium">
+          <p className="text-cream/70 max-w-xl mx-auto mt-3">
+            Publications and media coverage featuring
+            <span className="text-gold font-semibold">
               {" "}Shafa Aura Yogadiasa
-            </span>.
+            </span>
           </p>
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={24}
+          loop={true}
+          speed={5000}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1280: {
+              slidesPerView: 3,
+            },
+          }}
+        >
           {newsData.map((item, i) => (
-            <motion.a
-              key={i}
-              href={item.link}
-              target="_blank"
-              rel="noreferrer"
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.04,
-              }}
-              whileHover={{
-                y: -8,
-                scale: 1.01,
-              }}
-              className="group bg-card border border-gold/15 rounded-2xl overflow-hidden hover:border-gold/40 hover:shadow-[0_10px_30px_rgba(212,175,55,0.08)] transition-all duration-300"
-            >
-              <div className="overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-44 object-cover group-hover:scale-[1.04] transition-transform duration-700"
-                />
-              </div>
+            <SwiperSlide key={i}>
+              <motion.a
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{
+                  y: -8,
+                }}
+                className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-56 object-cover group-hover:scale-105 transition duration-700"
+                  />
 
-              <div className="p-4">
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full text-xs bg-black/60 backdrop-blur-md text-gold border border-gold/20">
+                      {item.source}
+                    </span>
+                  </div>
+                </div>
 
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gold/70">
+                <div className="p-6">
+                  <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
                     {item.date}
-                  </span>
+                  </p>
 
-                  <span className="px-2 py-1 text-[10px] rounded-full bg-gold/10 text-gold border border-gold/20">
-                    {item.source}
-                  </span>
+                  <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-
-                <h3 className="text-base md:text-lg font-semibold text-gold leading-snug mb-3">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-cream/70 leading-relaxed line-clamp-3">
-                  {item.description}
-                </p>
-
-                <div className="mt-5 text-sm font-medium text-gold opacity-80 group-hover:opacity-100 transition">
-                  Read Full Story →
-                </div>
-
-              </div>
-            </motion.a>
+              </motion.a>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
 
       </div>
     </section>
