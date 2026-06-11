@@ -124,20 +124,22 @@ export default function News() {
   return (
     <section
       id="news"
-      className="py-28 px-6 md:px-20 bg-brownDark"
+      className="py-24 px-6 md:px-12 bg-brownDark"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <h2 className="text-4xl font-serifDisplay text-gold mb-4">
             Media & Highlights
           </h2>
+
+          <div className="w-20 h-px bg-gold/40 mx-auto mb-6" />
 
           <p className="text-cream/70 max-w-2xl mx-auto leading-relaxed">
             Publications, media coverage, and featured stories highlighting
@@ -148,14 +150,14 @@ export default function News() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {newsData.map((item, i) => (
             <motion.a
               key={i}
               href={item.link}
               target="_blank"
               rel="noreferrer"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
@@ -163,31 +165,32 @@ export default function News() {
                 delay: i * 0.04,
               }}
               whileHover={{
-                y: -6,
+                y: -8,
+                scale: 1.01,
               }}
-              className="group bg-card border border-gold/15 rounded-2xl overflow-hidden hover:border-gold/40 transition-all duration-300"
+              className="group bg-card border border-gold/15 rounded-2xl overflow-hidden hover:border-gold/40 hover:shadow-[0_10px_30px_rgba(212,175,55,0.08)] transition-all duration-300"
             >
               <div className="overflow-hidden">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-52 object-cover group-hover:scale-[1.04] transition-transform duration-700"
+                  className="w-full h-44 object-cover group-hover:scale-[1.04] transition-transform duration-700"
                 />
               </div>
 
-              <div className="p-5">
+              <div className="p-4">
 
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-gold/70">
                     {item.date}
                   </span>
 
-                  <span className="text-xs text-cream/50">
+                  <span className="px-2 py-1 text-[10px] rounded-full bg-gold/10 text-gold border border-gold/20">
                     {item.source}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-semibold text-gold leading-snug mb-3">
+                <h3 className="text-base md:text-lg font-semibold text-gold leading-snug mb-3">
                   {item.title}
                 </h3>
 
