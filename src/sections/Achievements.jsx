@@ -67,48 +67,98 @@ export default function Achievements() {
   return (
     <section
       id="achievements"
-      className="relative py-28 px-6 md:px-20 bg-brownDark"
+      className="relative py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
     >
+      {/* Background */}
       <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.03]" />
 
       <div className="relative max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+        
+        {/* HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-4xl font-serifDisplay font-bold text-gold mb-12"
+          className="mb-16 text-center"
         >
-          Achievements
-        </motion.h2>
+          <p className="uppercase tracking-[0.3em] text-gold/70 text-sm mb-4">
+            Recognition & Excellence
+          </p>
 
-        <div className="grid md:grid-cols-2 gap-6">
+          <h2 className="text-4xl md:text-5xl font-serifDisplay font-bold text-gold">
+            Achievements
+          </h2>
+
+          <div className="w-24 h-[2px] bg-gold mx-auto mt-6" />
+        </motion.div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {achievementsData.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
+              transition={{
+                duration: 0.5,
+                delay: i * 0.05,
+              }}
               viewport={{ once: true }}
-              className="group bg-card border border-gold/20 p-6 rounded-2xl hover:shadow-goldGlow transition-all duration-300"
+              whileHover={{
+                y: -8,
+              }}
+              className="
+                group
+                relative
+                overflow-hidden
+                rounded-3xl
+                border
+                border-gold/15
+                bg-card
+                p-6
+                backdrop-blur-xl
+                transition-all
+                duration-300
+                hover:border-gold/40
+                hover:shadow-[0_0_30px_rgba(212,175,55,0.15)]
+              "
             >
-              <div className="flex items-start gap-4">
-                {/* RANK */}
-                <div className="text-3xl">
+              {/* glow */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-r from-gold/5 via-transparent to-gold/5" />
+
+              <div className="relative flex gap-5 items-start">
+
+                {/* MEDAL */}
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-center
+                    w-16
+                    h-16
+                    rounded-2xl
+                    bg-gold/10
+                    border
+                    border-gold/20
+                    text-3xl
+                    shrink-0
+                  "
+                >
                   {item.rank}
                 </div>
 
                 {/* CONTENT */}
-                <div>
-                  <h3 className="text-cream font-semibold text-lg leading-snug">
+                <div className="flex-1">
+                  <h3 className="text-lg md:text-xl font-semibold text-cream leading-snug">
                     {item.title}
                   </h3>
 
-                  <p className="text-gold/90 font-medium mt-1">
+                  <p className="text-gold mt-2 font-medium">
                     {item.event}
                   </p>
 
-                  <p className="text-cream/60 text-sm mt-1">
+                  <p className="text-sm text-cream/60 mt-2">
                     {item.location}
                   </p>
                 </div>
