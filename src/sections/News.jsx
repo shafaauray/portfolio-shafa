@@ -1,9 +1,4 @@
 import { motion } from "framer-motion"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { FreeMode } from "swiper/modules"
-
-import "swiper/css"
-import "swiper/css/free-mode"
 
 const newsData = [
   {
@@ -73,7 +68,7 @@ const newsData = [
     title: "KKN: Edukasi Pencegahan Phishing dan Berita Hoax",
     description:
       "Edukasi Bijak dalam Penggunaan Internet: Pencegahan Phishing oleh Shafa Aura Yogadiasa untuk adik-adik sekolah di Sumatera Selatan",
-    date: "Lempuing Jaya, 2025",
+    date: "Lempuing Jaya,2025",
     image: "/shafakkn1.jpeg",
     link: "https://www.instagram.com/p/DQwMDEJDz9M/?hl=id&img_index=4",
     source: "Instagram",
@@ -90,7 +85,7 @@ const newsData = [
   {
     title: "UGM Karate Borong 12 Medali di International Silent Knight Karate Cup",
     description:
-      "Unit Kegiatan Mahasiswa (UKM) Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024.",
+      "Unit Kegiatan Mahasiswa (UKM) Karate UGM berhasil membawa pulang 12 medali dalam Silent Knight Karate Cup 2024 di Titiwangsa Stadium, Malaysia, termasuk lima medali emas, empat perak, dan tiga perunggu — sebuah prestasi kerja keras yang membanggakan bagi tim UGM.",
     date: "March 14, 2024",
     image: "/skm.webp",
     link: "https://ugm.ac.id/id/berita/karate-ugm-borong-12-medali-kejuaraan-silent-knight-karate-cup-di-malaysia/",
@@ -99,7 +94,7 @@ const newsData = [
   {
     title: "UGM Wins 23 Medals – Official UGM News",
     description:
-      "UGM crowned 3rd overall at 2023 Brawijaya University Karate Championship.",
+      "UGM crowned 3rd overall at 2023 Brawijaya University Karate Championship. Shafa Aura Yogadiasa contributed to the medal haul with her outstanding performance in the competition.",
     date: "November 2023",
     image: "/ugmwinsub.webp",
     link: "https://ugm.ac.id/en/news/ugm-wins-23-medals-crowned-3rd-overall-in-2023-brawijaya-university-karate-championship/",
@@ -108,7 +103,7 @@ const newsData = [
   {
     title: "Kabar Baik dari Malaysia",
     description:
-      "Tim Kata Universitas Gadjah Mada memborong medali di Malaysia termasuk prestasi internasional.",
+      "Tim Kata Universitas Gadjah Mada memborong medali di Malaysia termasuk prestasi internasional. Shafa Aura Yogadiasa bersama dua rekan timnya...",
     date: "2023",
     image: "/shafa3sk.webp",
     link: "https://www.instagram.com/p/C4VTbkDvWFy/?hl=id&img_index=7",
@@ -117,7 +112,7 @@ const newsData = [
   {
     title: "UGM Sabet 20 Medali di Kompetisi Karate Internasional di Magelang",
     description:
-      "UGM berhasil membawa pulang 20 medali dari ajang kompetisi karate internasional.",
+      "UGM berhasil membawa pulang 20 medali dari ajang kompetisi karate internasional yang digelar di Magelang, termasuk prestasi Shafa Aura Yogadiasa dalam kategori U21 Kata Perorangan Putri.",
     date: "September 2023",
     image: "/magelang.jpg",
     link: "https://baliportalnews.com/2023/09/karate-ugm-sabet-20-medali-dari-kompetisi-karate-internasional-di-magelang/",
@@ -125,102 +120,89 @@ const newsData = [
   },
 ]
 
-function NewsCard({ item }) {
-  return (
-    <motion.a
-      href={item.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.25 }}
-      className="group block h-full bg-card border border-gold/15 rounded-3xl overflow-hidden backdrop-blur-lg"
-    >
-      <div className="relative overflow-hidden">
-        <img
-          src={item.image}
-          alt={item.title}
-          className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 rounded-full text-xs bg-black/60 backdrop-blur-md text-gold border border-gold/20">
-            {item.source}
-          </span>
-        </div>
-      </div>
-
-      <div className="p-6">
-        <p className="text-xs uppercase tracking-wider text-gold/60 mb-3">
-          {item.date}
-        </p>
-
-        <h3 className="text-lg font-semibold text-gold mb-3 line-clamp-2">
-          {item.title}
-        </h3>
-
-        <p className="text-sm text-cream/70 line-clamp-3 leading-relaxed">
-          {item.description}
-        </p>
-      </div>
-    </motion.a>
-  )
+// helper: chunk per 6 item
+const chunkedNews = []
+for (let i = 0; i < newsData.length; i += 6) {
+  chunkedNews.push(newsData.slice(i, i + 6))
 }
 
 export default function News() {
   return (
-    <section
-      id="news"
-      className="py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
-    >
+    <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
       <div className="max-w-7xl mx-auto">
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-12"
         >
           <h2 className="text-4xl font-serifDisplay text-gold">
             Media & Highlights
           </h2>
-
-          <p className="text-cream/70 max-w-xl mx-auto mt-3">
-            Publications and media coverage featuring
-            <span className="text-gold font-semibold">
-              {" "}Shafa Aura Yogadiasa
+          <p className="text-cream/70 max-w-xl mx-auto mt-2">
+            Publikasi dan liputan media tentang
+            <span className="font-semibold text-gold">
+              {" "}
+              Shafa Aura Yogadiasa
             </span>
+            .
           </p>
         </motion.div>
 
-        <Swiper
-          modules={[FreeMode]}
-          freeMode={true}
-          grabCursor={true}
-          spaceBetween={24}
-          slidesPerView={1.1}
-          breakpoints={{
-            640: {
-              slidesPerView: 1.5,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 2.5,
-            },
-            1280: {
-              slidesPerView: 3,
-            },
-          }}
-        >
-          {newsData.map((item, index) => (
-            <SwiperSlide key={index} className="h-auto">
-              <NewsCard item={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {/* SLIDER */}
+        <div className="overflow-x-auto scroll-smooth">
+          <div className="flex gap-8 snap-x snap-mandatory">
+            {chunkedNews.map((group, slideIndex) => (
+              <div
+                key={slideIndex}
+                className="min-w-full snap-start"
+              >
+                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {group.map((item, i) => (
+                    <motion.a
+                      key={i}
+                      href={item.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: i * 0.1 }}
+                      viewport={{ once: true }}
+                      className="group block bg-card border border-gold/20 rounded-3xl overflow-hidden shadow-lg hover:shadow-goldGlow transition-all duration-300"
+                    >
+                      <div className="w-full h-48 overflow-hidden">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
 
+                      <div className="p-6">
+                        <p className="text-xs text-gold/70 font-medium">
+                          {item.date} • {item.source}
+                        </p>
+
+                        <h3 className="text-lg font-semibold text-gold mt-2 mb-2">
+                          {item.title}
+                        </h3>
+
+                        <p className="text-sm text-cream/70 line-clamp-3">
+                          {item.description}
+                        </p>
+
+                        <div className="mt-4 text-sm font-semibold text-gold underline">
+                          Read Full Story →
+                        </div>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
