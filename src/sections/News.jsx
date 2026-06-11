@@ -128,82 +128,106 @@ for (let i = 0; i < newsData.length; i += 6) {
 
 export default function News() {
   return (
-    <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl font-serifDisplay text-gold">
-            Media & Highlights
-          </h2>
-          <p className="text-cream/70 max-w-xl mx-auto mt-2">
-            Publikasi dan liputan media tentang
-            <span className="font-semibold text-gold">
-              {" "}
-              Shafa Aura Yogadiasa
-            </span>
-            .
-          </p>
-        </motion.div>
+  <section id="news" className="py-28 px-6 md:px-20 bg-brownDark">
+    <div className="max-w-7xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-center mb-14"
+      >
+        <h2 className="text-4xl md:text-5xl font-serifDisplay text-gold">
+          Media & Highlights
+        </h2>
 
-        {/* SLIDER */}
-        <div className="overflow-x-auto scroll-smooth">
-          <div className="flex gap-8 snap-x snap-mandatory">
-            {chunkedNews.map((group, slideIndex) => (
-              <div
-                key={slideIndex}
-                className="min-w-full snap-start"
-              >
-                <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                  {group.map((item, i) => (
-                    <motion.a
-                      key={i}
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: i * 0.1 }}
-                      viewport={{ once: true }}
-                      className="group block bg-card border border-gold/20 rounded-3xl overflow-hidden shadow-lg hover:shadow-goldGlow transition-all duration-300"
-                    >
-                      <div className="w-full h-48 overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+        <p className="text-cream/70 max-w-xl mx-auto mt-3 leading-relaxed">
+          Publikasi dan liputan media tentang
+          <span className="font-semibold text-gold">
+            {" "}Shafa Aura Yogadiasa
+          </span>
+          .
+        </p>
+      </motion.div>
+
+      <div className="overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4">
+        <div className="flex gap-8">
+          {chunkedNews.map((group, slideIndex) => (
+            <div
+              key={slideIndex}
+              className="min-w-full snap-center"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {group.map((item, i) => (
+                  <motion.a
+                    key={i}
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: i * 0.08,
+                    }}
+                    viewport={{ once: true }}
+                    className="
+                      group
+                      h-full
+                      flex
+                      flex-col
+                      overflow-hidden
+                      rounded-3xl
+                      bg-card
+                      border border-gold/20
+                      shadow-lg
+                      transition-all
+                      duration-500
+                      hover:-translate-y-2
+                      hover:border-gold/40
+                      hover:shadow-goldGlow
+                    "
+                  >
+                    <div className="overflow-hidden aspect-[16/10]">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="
+                          w-full
+                          h-full
+                          object-cover
+                          transition-transform
+                          duration-700
+                          group-hover:scale-105
+                        "
+                      />
+                    </div>
+
+                    <div className="p-6 flex flex-col flex-grow">
+                      <p className="text-xs text-gold/70 font-medium uppercase tracking-wide">
+                        {item.date} • {item.source}
+                      </p>
+
+                      <h3 className="text-lg font-semibold text-gold mt-3 mb-3 line-clamp-2 leading-snug">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-sm text-cream/70 line-clamp-4 leading-relaxed flex-grow">
+                        {item.description}
+                      </p>
+
+                      <div className="mt-6 text-sm font-semibold text-gold flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
+                        Read Full Story →
                       </div>
-
-                      <div className="p-6">
-                        <p className="text-xs text-gold/70 font-medium">
-                          {item.date} • {item.source}
-                        </p>
-
-                        <h3 className="text-lg font-semibold text-gold mt-2 mb-2">
-                          {item.title}
-                        </h3>
-
-                        <p className="text-sm text-cream/70 line-clamp-3">
-                          {item.description}
-                        </p>
-
-                        <div className="mt-4 text-sm font-semibold text-gold underline">
-                          Read Full Story →
-                        </div>
-                      </div>
-                    </motion.a>
-                  ))}
-                </div>
+                    </div>
+                  </motion.a>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
-  )
+    </div>
+  </section>
+)
 }
