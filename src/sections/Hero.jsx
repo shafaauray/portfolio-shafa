@@ -1,12 +1,13 @@
 import { motion } from "framer-motion"
 import { FiArrowUpRight } from "react-icons/fi"
 import { HiOutlineLocationMarker } from "react-icons/hi"
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa"
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 }
 
@@ -19,36 +20,45 @@ const item = {
   },
 }
 
+const socials = [
+  { label: "GitHub", href: "https://github.com/shafaauray", icon: <FaGithub /> },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/shafaaurayogadiasa", icon: <FaLinkedin /> },
+  { label: "Instagram", href: "https://www.instagram.com/shafaauray/", icon: <FaInstagram /> },
+]
+
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-brownDark">
-
+    <section
+      id="top"
+      className="relative min-h-screen flex items-center overflow-hidden bg-brownDark pt-28 pb-20 lg:pt-24 lg:pb-16"
+    >
       {/* BATIK TEXTURE */}
       <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.05]" />
 
       {/* WARM LIGHT */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gold/20 blur-[160px]" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brownSoft/30 blur-[160px]" />
+      <div className="absolute top-0 left-0 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-gold/20 blur-[160px]" />
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] bg-brownSoft/30 blur-[160px]" />
 
       {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 grid md:grid-cols-2 gap-16 items-center">
-
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-20 grid lg:grid-cols-2 gap-16 items-center">
         {/* LEFT */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
+          className="text-center lg:text-left"
         >
           <motion.span
             variants={item}
-            className="inline-block mb-6 px-5 py-2 rounded-full text-sm bg-gold/10 text-gold tracking-wide"
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full text-xs sm:text-sm bg-gold/10 border border-gold/20 text-gold tracking-wide"
           >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             Open to collaboration
           </motion.span>
 
           <motion.h1
             variants={item}
-            className="text-4xl md:text-6xl font-bold leading-tight mb-6 text-cream"
+            className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight mb-4 text-cream"
           >
             Hi, I’m <br />
             <span className="text-gold">Shafa Aura Yogadiasa</span>
@@ -56,39 +66,64 @@ function Hero() {
 
           <motion.p
             variants={item}
-            className="text-cream/80 max-w-xl leading-relaxed mb-6"
+            className="text-lg sm:text-xl text-cream/90 font-medium mb-5"
           >
-            Bachelor of Information Technology student at Universitas Gadjah Mada
-            with strong interests in UI/UX, web development, and meaningful digital
-            experiences. Blending technology, creativity, and discipline shaped by 
-            life as a karate athlete.
+            UI/UX Designer & Frontend Developer
+          </motion.p>
+
+          <motion.p
+            variants={item}
+            className="text-cream/70 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-6 text-sm sm:text-base"
+          >
+            Information Engineering student at Universitas Gadjah Mada with a
+            strong interest in UI/UX, web development, and meaningful digital
+            experiences, blending technology and creativity with the discipline
+            of a karate athlete.
           </motion.p>
 
           <motion.div
             variants={item}
-            className="flex items-center gap-2 text-sm text-cream/60 mb-10"
+            className="flex items-center justify-center lg:justify-start gap-2 text-sm text-cream/60 mb-8"
           >
-            <HiOutlineLocationMarker />
+            <HiOutlineLocationMarker className="text-gold" />
             Kota Tangerang, Indonesia
           </motion.div>
 
           <motion.div
             variants={item}
-            className="flex gap-4 flex-wrap"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
           >
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-gold text-brownDark font-medium hover:opacity-90 transition"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gold text-brownDark font-semibold hover:shadow-[0_0_24px_rgba(212,175,55,0.45)] hover:-translate-y-0.5 transition-all"
             >
               View Projects <FiArrowUpRight />
             </a>
 
             <a
               href="#contact"
-              className="px-8 py-3 rounded-xl border border-gold/40 text-cream hover:bg-gold/10 transition"
+              className="inline-flex items-center justify-center px-7 py-3 rounded-xl border border-gold/40 text-cream font-medium hover:bg-gold/10 hover:border-gold transition-all"
             >
               Contact Me
             </a>
+          </motion.div>
+
+          <motion.div
+            variants={item}
+            className="flex gap-3 mt-8 justify-center lg:justify-start"
+          >
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-11 h-11 flex items-center justify-center rounded-full border border-gold/20 text-cream/70 text-lg hover:text-gold hover:border-gold transition-all"
+              >
+                {s.icon}
+              </a>
+            ))}
           </motion.div>
         </motion.div>
 
@@ -100,34 +135,33 @@ function Hero() {
           className="flex justify-center relative"
         >
           <div className="relative">
-
-            {/* STRING */}
-            <div className="absolute left-1/2 -top-40 -translate-x-1/2 w-[2px] h-40 bg-gradient-to-b from-gold to-transparent" />
+            {/* STRING (desktop only, would collide with text on small screens) */}
+            <div className="hidden lg:block absolute left-1/2 -top-40 -translate-x-1/2 w-[2px] h-40 bg-gradient-to-b from-gold to-transparent" />
 
             {/* HOOK */}
-            <div className="absolute left-1/2 -top-3 -translate-x-1/2 w-4 h-4 rounded-full border border-gold bg-brownDark z-10" />
+            <div className="hidden lg:block absolute left-1/2 -top-3 -translate-x-1/2 w-4 h-4 rounded-full border border-gold bg-brownDark z-10" />
 
             {/* CARD */}
             <motion.div
               animate={{ rotate: [-2, 2, -2] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               style={{ transformOrigin: "top center" }}
-              className="relative mt-6"
+              className="relative lg:mt-6"
             >
               <div className="absolute -inset-1 bg-gold/30 blur-2xl rounded-2xl" />
 
-              <div className="relative bg-card border border-gold/30 rounded-2xl p-5 w-64 text-center">
+              <div className="relative bg-card border border-gold/30 rounded-2xl p-5 w-60 sm:w-64 text-center">
                 <img
                   src="/fotoshafa.jpg"
-                  alt="Shafa Aura Yogadiasa"
-                  className="rounded-xl mb-4 object-cover"
+                  alt="Portrait of Shafa Aura Yogadiasa"
+                  className="rounded-xl mb-4 w-full aspect-[4/5] object-cover"
                 />
 
                 <h3 className="text-cream font-semibold text-lg">
-                  Shafa Aura Y
+                  Shafa Aura Y.
                 </h3>
                 <p className="text-sm text-cream/60 mb-3">
-                  UI/UX • Web • Leadership
+                  Information Engineering · UGM
                 </p>
 
                 <div className="flex justify-center gap-2 text-xs text-cream/70">
@@ -137,10 +171,8 @@ function Hero() {
                 </div>
               </div>
             </motion.div>
-
           </div>
         </motion.div>
-
       </div>
     </section>
   )

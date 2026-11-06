@@ -15,7 +15,7 @@ export default {
       },
       fontFamily: {
         serifDisplay: ["'Playfair Display'", "serif"],
-        body: ["'Cormorant Garamond'", "serif"],
+        body: ["Inter", "system-ui", "-apple-system", "'Segoe UI'", "sans-serif"],
       },
       backgroundImage: {
         radialGlow:

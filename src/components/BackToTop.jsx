@@ -30,11 +30,12 @@ export default function BackToTop() {
       {visible && (
         <motion.button
           onClick={scrollToTop}
+          aria-label="Back to top"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-8 right-8 bg-brownDark border border-gold/40 text-gold p-3 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:scale-110 transition-all duration-300 z-50"
+          className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 bg-brownDark border border-gold/40 text-gold p-3 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(212,175,55,0.6)] hover:scale-110 transition-all duration-300 z-50"
         >
           <ArrowUp size={18} />
         </motion.button>

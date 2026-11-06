@@ -1,100 +1,136 @@
 import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 
 const sections = [
-  "about",
-  "skills",
-  "experience",
-  "education",
-  "certificates", // ✅ BARU
-  "achievements",
-  "news",
-  "projects",
-  "contact",
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "certificates", label: "Certificates" },
+  { id: "achievements", label: "Achievements" },
+  { id: "news", label: "Media" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
 ]
 
 export default function Navbar() {
   const [active, setActive] = useState("")
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
+  // Highlight the section currently under the navbar
   useEffect(() => {
     const handleScroll = () => {
-      sections.forEach((id) => {
-        const element = document.getElementById(id)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          if (rect.top <= 120 && rect.bottom >= 120) {
-            setActive(id)
-          }
-        }
-      })
+      setScrolled(window.scrollY > 20)
+
+      let current = ""
+      for (const { id } of sections) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= 120) current = id
+      }
+      setActive(current)
     }
 
-    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const handleClick = () => {
-    setOpen(false)
-  }
+  // Close the mobile menu when switching to desktop width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false)
+    }
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-brownDark/80 backdrop-blur-md z-50 border-b border-gold/20">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-
+    <header
+      className={`fixed top-0 left-0 w-full z-50 border-b transition-all duration-300 ${
+        scrolled || open
+          ? "bg-brownDark/90 backdrop-blur-md border-gold/20 shadow-lg shadow-black/20"
+          : "bg-transparent border-transparent"
+      }`}
+    >
+      <nav
+        aria-label="Main navigation"
+        className="max-w-7xl mx-auto flex justify-between items-center px-5 sm:px-8 lg:px-10 h-16"
+      >
         {/* LOGO */}
-        <h1 className="text-gold font-serifDisplay text-xl">
+        <a
+          href="#top"
+          onClick={() => setOpen(false)}
+          className="text-gold font-serifDisplay text-xl tracking-wide"
+        >
           Shafa Aura
-        </h1>
+        </a>
 
         {/* DESKTOP MENU */}
-        <ul className="hidden md:flex gap-6 text-sm tracking-wide">
-          {sections.map((id) => (
+        <ul className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm">
+          {sections.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
-                className={`transition-all duration-300 ${
-                  active === id
-                    ? "text-gold"
-                    : "text-cream hover:text-gold"
+                aria-current={active === id ? "page" : undefined}
+                className={`relative py-1 transition-colors duration-300 ${
+                  active === id ? "text-gold" : "text-cream/80 hover:text-gold"
                 }`}
               >
-                {id.charAt(0).toUpperCase() + id.slice(1)}
+                {label}
+                <span
+                  className={`absolute left-0 -bottom-0.5 h-[1.5px] bg-gold transition-all duration-300 ${
+                    active === id ? "w-full" : "w-0"
+                  }`}
+                />
               </a>
             </li>
           ))}
         </ul>
 
-        {/* MOBILE HAMBURGER */}
-        <div className="md:hidden">
-          <button onClick={() => setOpen(!open)}>
-            {open ? (
-              <X className="text-gold" size={24} />
-            ) : (
-              <Menu className="text-gold" size={24} />
-            )}
-          </button>
-        </div>
-      </div>
+        {/* MOBILE / TABLET TOGGLE */}
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          className="lg:hidden p-2 -mr-2 text-gold"
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
 
-      {/* MOBILE MENU */}
-      {open && (
-        <div className="md:hidden bg-brownSoft border-t border-gold/20">
-          <ul className="flex flex-col items-center gap-6 py-6 text-sm tracking-wide">
-            {sections.map((id) => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  onClick={handleClick}
-                  className="text-cream hover:text-gold transition-all duration-300"
-                >
-                  {id.charAt(0).toUpperCase() + id.slice(1)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </nav>
+      {/* MOBILE / TABLET MENU */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25 }}
+            className="lg:hidden overflow-hidden border-t border-gold/20 bg-brownDark/95"
+          >
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 px-5 sm:px-8 py-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
+              {sections.map(({ id, label }) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    onClick={() => setOpen(false)}
+                    className={`block rounded-lg px-4 py-3 text-sm transition-colors ${
+                      active === id
+                        ? "bg-gold/10 text-gold"
+                        : "text-cream/80 hover:bg-white/5 hover:text-gold"
+                    }`}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   )
 }

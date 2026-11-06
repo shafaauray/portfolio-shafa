@@ -6,6 +6,8 @@ const links = [
   { name: "Skills", id: "skills" },
   { name: "Experience", id: "experience" },
   { name: "Education", id: "education" },
+  { name: "Certificates", id: "certificates" },
+  { name: "Achievements", id: "achievements" },
   { name: "Projects", id: "projects" },
   { name: "Contact", id: "contact" },
 ]
@@ -14,12 +16,12 @@ function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-brownDark relative border-t border-gold/20 pt-20 pb-10 px-6 md:px-20">
+    <footer className="bg-brownDark relative border-t border-gold/20 pt-16 sm:pt-20 pb-10 px-5 sm:px-8 lg:px-20">
 
       {/* Top Gradient Line */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent"></div>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-14">
+      <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14">
 
         {/* BRAND SECTION */}
         <motion.div
@@ -51,7 +53,7 @@ function Footer() {
             Navigation
           </h3>
 
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-3 w-fit">
             {links.map((link) => (
               <a
                 key={link.id}
@@ -82,7 +84,8 @@ function Footer() {
             <a
               href="https://github.com/shafaauray"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
               className="hover:text-gold hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.7)] transition-all duration-300"
             >
               <FaGithub />
@@ -91,7 +94,8 @@ function Footer() {
             <a
               href="https://www.linkedin.com/in/shafaaurayogadiasa"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
               className="hover:text-gold hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.7)] transition-all duration-300"
             >
               <FaLinkedin />
@@ -100,7 +104,8 @@ function Footer() {
             <a
               href="https://www.instagram.com/shafaauray/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
               className="hover:text-gold hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.7)] transition-all duration-300"
             >
               <FaInstagram />
@@ -110,7 +115,7 @@ function Footer() {
       </div>
 
       {/* COPYRIGHT */}
-      <div className="text-center text-cream/40 text-xs mt-20 border-t border-gold/10 pt-6 tracking-wide">
+      <div className="text-center text-cream/40 text-xs mt-14 sm:mt-20 border-t border-gold/10 pt-6 tracking-wide">
         © {year} Shafa Aura. All rights reserved.
       </div>
     </footer>

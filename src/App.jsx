@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { motion } from "framer-motion"
 
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
@@ -16,9 +15,21 @@ import Projects from "./sections/Projects"
 import News from "./sections/News"
 import Contact from "./sections/Contact"
 
+const sections = [
+  About,
+  Skills,
+  Experience,
+  Education,
+  Certificates,
+  Achievements,
+  News,
+  Projects,
+  Contact,
+]
+
 function App() {
   useEffect(() => {
-    const sections = document.querySelectorAll(".fade-section")
+    const wrappers = document.querySelectorAll(".fade-section")
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,69 +39,33 @@ function App() {
           }
         })
       },
-      { threshold: 0.15 }
+      { threshold: 0.05 }
     )
 
-    sections.forEach((section) => observer.observe(section))
+    wrappers.forEach((el) => observer.observe(el))
 
     return () => observer.disconnect()
   }, [])
 
   return (
     <div className="relative overflow-x-hidden">
-
       {/* GLOBAL RADIAL GLOW */}
       <div className="fixed inset-0 -z-10 bg-radialGlow opacity-60 pointer-events-none" />
 
       <Navbar />
 
-      <Hero />
+      <main>
+        <Hero />
 
-      <section className="fade-section">
-        <About />
-      </section>
-
-      <section className="fade-section">
-        <Skills />
-      </section>
-
-      <section className="fade-section">
-        <Experience />
-      </section>
-
-      <section className="fade-section">
-        <Education />
-      </section>
-
-      {/* ✅ CERTIFICATES – BARU */}
-      <section className="fade-section">
-        <Certificates />
-      </section>
-
-      <section className="fade-section">
-        <Achievements />
-      </section>
-
-      <section className="fade-section">
-        <News />
-      </section>
-
-      <section className="fade-section">
-        <Projects />
-      </section>
-
-      <section className="fade-section">
-        <Contact />
-      </section>
+        {sections.map((Section, i) => (
+          <div key={i} className="fade-section">
+            <Section />
+          </div>
+        ))}
+      </main>
 
       <Footer />
-
-      {/* FLOATING GOLD PARTICLE */}
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-        className="fixed bottom-10 right-10 w-4 h-4 bg-gold rounded-full blur-sm opacity-60 pointer-events-none"
-      />
+      <BackToTop />
     </div>
   )
 }

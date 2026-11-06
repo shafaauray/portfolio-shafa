@@ -1,29 +1,37 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
+import { FiChevronLeft, FiChevronRight, FiArrowUpRight, FiLock } from "react-icons/fi"
+import SectionHeading from "../components/SectionHeading"
 
 const projects = [
   {
-    title: "KARIR.AI : AI Career Recommendation Platform",
+    title: "KARIR.AI",
+    subtitle: "AI Career Recommendation Platform",
     description:
       "A web-based AI platform that analyzes user resumes to generate personalized career recommendations.",
-    tech: "Next.js • React • Node.js • AI",
+    tech: ["Next.js", "React", "Node.js", "AI"],
     link: "https://karir-ai.vercel.app",
+    linkLabel: "Live Demo",
     images: ["/karirai-demo.mp4", "/karir.png", "/karir2.png", "/karir3.png", "/karir4.png"],
   },
   {
-    title: "AFFECTRA : EEG-Based Emotion Tracker",
+    title: "AFFECTRA",
+    subtitle: "EEG-Based Emotion Tracker",
     description:
-      "EEG wearable system to classify emotions using AI with interactive dashboard.",
-    tech: "MERN • AI • EEG",
+      "EEG wearable system to classify emotions using AI with an interactive dashboard.",
+    tech: ["MERN", "AI", "EEG"],
     link: "https://github.com/hezekielstp/Capstone-B05",
+    linkLabel: "View on GitHub",
     images: ["/affectra.png", "/affectra2.png", "/affectra3.png", "/affectra4.png"],
   },
   {
     title: "BukuTamu BKN Yogyakarta",
+    subtitle: "Digital Guest Book System",
     description:
-      "Web-based guest book system for managing visitors efficiently.",
-    tech: "HTML • CSS • PHP",
-    link: "#",
+      "Web-based guest book system for managing visitors efficiently at the BKN Yogyakarta office.",
+    tech: ["HTML", "CSS", "PHP"],
+    // No public link: internal system built during the BKN internship
+    link: null,
     images: ["/bkn.png", "/bkn2.png", "/bkn3.png", "/bkn4.png", "/bkn5.png"],
   },
 ]
@@ -32,19 +40,21 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 px-6 md:px-16 bg-gradient-to-b from-[#120e0b] to-[#1c1511]"
+      className="relative py-20 md:py-28 px-5 sm:px-8 lg:px-20 bg-brownDark overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.03]" />
 
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-amber-300">
-            Selected Projects
-          </h2>
-        </div>
+      <div className="relative max-w-7xl mx-auto">
+        <SectionHeading
+          eyebrow="Things I've built"
+          title="Selected"
+          highlight="Projects"
+          description="A selection of products I've designed and developed, from AI-powered platforms to internal tools."
+        />
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <ProjectCard project={project} key={index} index={index} />
+            <ProjectCard project={project} key={project.title} index={index} />
           ))}
         </div>
       </div>
@@ -54,103 +64,120 @@ export default function Projects() {
 
 function ProjectCard({ project, index }) {
   const [current, setCurrent] = useState(0)
+  const total = project.images.length
 
-  const nextSlide = () => {
-    setCurrent((prev) =>
-      prev === project.images.length - 1 ? 0 : prev + 1
-    )
-  }
-
-  const prevSlide = () => {
-    setCurrent((prev) =>
-      prev === 0 ? project.images.length - 1 : prev - 1
-    )
-  }
+  const go = (step) => setCurrent((prev) => (prev + step + total) % total)
 
   const currentMedia = project.images[current]
-  const isVideo = currentMedia.includes(".mp4")
+  const isVideo = currentMedia.endsWith(".mp4")
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -10 }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
       viewport={{ once: true }}
-      className="bg-[#1f1914] border border-amber-700/20 rounded-2xl overflow-hidden shadow-lg"
+      className="group flex flex-col bg-card border border-gold/20 rounded-2xl overflow-hidden shadow-lg hover:border-gold/50 hover:shadow-goldGlow hover:-translate-y-1.5 transition-all duration-300"
     >
-      
-      <div className="relative">
-
+      {/* MEDIA */}
+      <div className="relative aspect-video bg-brownSoft">
         {isVideo ? (
           <video
+            key={currentMedia}
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-48 object-cover"
+            preload="metadata"
+            poster={project.images[1]}
+            className="w-full h-full object-cover"
+            aria-label={`${project.title} demo video`}
           >
             <source src={currentMedia} type="video/mp4" />
-            Your browser does not support the video tag.
           </video>
         ) : (
           <img
             src={currentMedia}
-            className="w-full h-48 object-cover"
+            alt={`${project.title} screenshot ${current + 1} of ${total}`}
+            loading="lazy"
+            className="w-full h-full object-cover"
           />
         )}
 
-        {project.images.length > 1 && (
+        {total > 1 && (
           <>
             <button
-              onClick={prevSlide}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 px-2 rounded"
+              type="button"
+              onClick={() => go(-1)}
+              aria-label={`Previous ${project.title} image`}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brownDark/70 backdrop-blur text-gold flex items-center justify-center hover:bg-gold hover:text-brownDark transition"
             >
-              ‹
+              <FiChevronLeft size={18} />
             </button>
 
             <button
-              onClick={nextSlide}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 px-2 rounded"
+              type="button"
+              onClick={() => go(1)}
+              aria-label={`Next ${project.title} image`}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-brownDark/70 backdrop-blur text-gold flex items-center justify-center hover:bg-gold hover:text-brownDark transition"
             >
-              ›
+              <FiChevronRight size={18} />
             </button>
+
+            <div className="absolute bottom-2.5 w-full flex justify-center gap-1.5">
+              {project.images.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrent(i)}
+                  aria-label={`Show ${project.title} media ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === current ? "w-5 bg-gold" : "w-1.5 bg-cream/50 hover:bg-cream"
+                  }`}
+                />
+              ))}
+            </div>
           </>
         )}
-
-        <div className="absolute bottom-2 w-full flex justify-center gap-2">
-          {project.images.map((_, i) => (
-            <div
-              key={i}
-              className={`w-2 h-2 rounded-full ${
-                i === current ? "bg-white" : "bg-gray-400"
-              }`}
-            />
-          ))}
-        </div>
       </div>
 
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-amber-200 mb-3">
-          {project.title}
-        </h3>
+      {/* CONTENT */}
+      <div className="p-5 sm:p-6 flex flex-col flex-1">
+        <h3 className="text-xl font-semibold text-cream">{project.title}</h3>
+        <p className="text-gold text-sm font-medium mt-1">{project.subtitle}</p>
 
-        <p className="text-amber-100/70 text-sm mb-4">
+        <p className="text-cream/70 text-sm leading-relaxed mt-4">
           {project.description}
         </p>
 
-        <p className="text-xs text-amber-400 mb-6">
-          {project.tech}
-        </p>
+        <ul className="flex flex-wrap gap-2 mt-5">
+          {project.tech.map((t) => (
+            <li
+              key={t}
+              className="text-xs text-cream/80 bg-white/5 border border-gold/15 rounded-full px-3 py-1"
+            >
+              {t}
+            </li>
+          ))}
+        </ul>
 
-        <a
-          href={project.link}
-          target="_blank"
-          className="inline-block px-4 py-2 text-sm border border-amber-500 rounded-full hover:bg-amber-600 hover:text-black transition"
-        >
-          View Project →
-        </a>
+        <div className="mt-auto pt-6">
+          {project.link ? (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gold border border-gold/50 rounded-full hover:bg-gold hover:text-brownDark transition"
+            >
+              {project.linkLabel} <FiArrowUpRight />
+            </a>
+          ) : (
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 text-sm text-cream/50 border border-cream/15 rounded-full">
+              <FiLock /> Internal Project
+            </span>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }

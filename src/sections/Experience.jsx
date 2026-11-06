@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
+import SectionHeading from "../components/SectionHeading"
 
 /* =======================
    DATA
@@ -245,21 +246,12 @@ const documentationMap = {
     "/ddd.jpeg",
   ],
 
-  "Secretary & Master of Ceremony": [
-    "/fotoshafa12.jpg",
-    "/fotoshafa12-2.jpg",
-    "/fotoshafa12-3.jpg",
-  ],
+  // "Secretary & Master of Ceremony" and "Executor" have no photos yet.
+  // Add their image paths here once the files are placed in /public.
 
   "Staff of Security Division": [
     "/icd1.jpeg",
     "/icd2.jpeg",
-  ],
-
-  Executor: [
-    "/fotoshafa14.jpg",
-    "/fotoshafa14-2.jpg",
-    "/fotoshafa14-3.jpg",
   ],
 }
 
@@ -267,12 +259,15 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-24 px-4 sm:px-6 md:px-20 bg-brownDark overflow-hidden"
+      className="py-20 md:py-28 px-5 sm:px-8 lg:px-20 bg-brownDark overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-serifDisplay font-bold text-gold mb-12">
-          Experience
-        </h2>
+        <SectionHeading
+          eyebrow="Where I've contributed"
+          title="Professional"
+          highlight="Experience"
+          description="Work, organizational, and event roles that shaped my technical, communication, and leadership skills."
+        />
 
         <Section title="Work Experience" data={workExperience} />
 
@@ -288,7 +283,7 @@ export default function Experience() {
 function Section({ title, data }) {
   return (
     <>
-      <h3 className="text-xl font-semibold text-gold mb-6">
+      <h3 className="text-xl sm:text-2xl font-semibold text-gold mb-6">
         {title}
       </h3>
 
@@ -314,7 +309,7 @@ function ExperienceCard({ item, docs }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="bg-card border border-gold/20 p-5 sm:p-6 rounded-2xl overflow-hidden"
+      className="bg-card border border-gold/20 p-5 sm:p-6 rounded-2xl overflow-hidden hover:border-gold/40 transition-colors"
     >
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:justify-between gap-3">
@@ -332,18 +327,18 @@ function ExperienceCard({ item, docs }) {
           </p>
         </div>
 
-        <p className="text-cream/60 text-sm md:text-right shrink-0">
+        <p className="self-start text-gold text-xs sm:text-sm font-medium bg-gold/10 border border-gold/20 rounded-full px-3 py-1 shrink-0 whitespace-nowrap">
           {item.period}
         </p>
       </div>
 
       {/* DESCRIPTION */}
-      <p className="mt-4 text-cream/70 leading-relaxed break-words">
+      <p className="mt-4 text-cream/70 leading-relaxed break-words text-sm sm:text-base">
         {item.description}
       </p>
 
       {/* TASKS */}
-      <ul className="mt-3 list-disc list-inside text-cream/70 space-y-2">
+      <ul className="mt-3 list-disc pl-5 marker:text-gold text-cream/70 space-y-2 text-sm sm:text-base">
         {item.tasks.map((task, i) => (
           <li key={i} className="break-words">
             {task}
@@ -352,12 +347,16 @@ function ExperienceCard({ item, docs }) {
       </ul>
 
       {/* BUTTON */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="mt-5 text-sm text-gold hover:underline"
-      >
-        {open ? "Hide Documentation" : "View Documentation"}
-      </button>
+      {docs.length > 0 && (
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          className="mt-5 inline-flex items-center gap-2 text-sm text-gold border border-gold/30 rounded-full px-4 py-1.5 hover:bg-gold/10 transition"
+        >
+          {open ? "Hide Documentation" : `View Documentation (${docs.length})`}
+        </button>
+      )}
 
       {/* DOCS */}
       <AnimatePresence>
@@ -377,7 +376,7 @@ function ExperienceCard({ item, docs }) {
                 >
                   <img
                     src={src}
-                    alt="Documentation"
+                    alt={`${item.role} documentation ${i + 1}`}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />

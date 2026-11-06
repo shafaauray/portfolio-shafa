@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import SectionHeading from "../components/SectionHeading"
 
 const achievementsData = [
   {
@@ -91,38 +92,24 @@ export default function Achievements() {
   return (
     <section
       id="achievements"
-      className="relative py-28 px-6 md:px-20 bg-brownDark"
+      className="relative py-20 md:py-28 px-5 sm:px-8 lg:px-20 bg-brownDark overflow-hidden"
     >
       {/* BATIK BACKGROUND */}
       <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.03]" />
 
       {/* GOLD GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gold/5 blur-[180px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-gold/5 blur-[180px]" />
 
       <div className="relative max-w-7xl mx-auto">
-        {/* SECTION HEADER */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="mb-14"
-        >
-          <h2 className="text-4xl md:text-5xl font-serifDisplay font-bold text-gold mb-4">
-            Achievements
-          </h2>
-
-          <div className="w-24 h-[2px] bg-gold/50 rounded-full" />
-
-          <p className="mt-5 text-cream/60 max-w-2xl">
-            A collection of national and international achievements that
-            reflect discipline, consistency, and commitment throughout my
-            karate journey.
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Beyond the screen"
+          title="Karate"
+          highlight="Achievements"
+          description="A collection of national and international achievements that reflect discipline, consistency, and commitment throughout my karate journey."
+        />
 
         {/* ACHIEVEMENTS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
           {achievementsData.map((item, i) => {
             const badge = getBadge(item.rank)
 
@@ -134,7 +121,7 @@ export default function Achievements() {
                 viewport={{ once: true }}
                 transition={{
                   duration: 0.5,
-                  delay: i * 0.05,
+                  delay: (i % 3) * 0.08,
                 }}
                 whileHover={{
                   y: -5,

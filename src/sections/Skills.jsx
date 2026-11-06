@@ -8,224 +8,238 @@ import {
   FaFigma,
   FaDatabase,
   FaUsers,
+  FaReact,
+  FaNodeJs,
+  FaPython,
+  FaMicrosoft,
+  FaVideo,
+  FaLightbulb,
+  FaMobileAlt,
+  FaServer,
+  FaCode,
 } from "react-icons/fa"
 import {
   SiCanva,
   SiAdobe,
   SiMysql,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiMongodb,
 } from "react-icons/si"
+import SectionHeading from "../components/SectionHeading"
 
 const skills = [
-  { name: "Web Development", percent: 85, icon: <FaHtml5 /> },
+  { name: "Web Development", percent: 85, icon: <FaCode /> },
   { name: "Frontend Engineering", percent: 90, icon: <FaJs /> },
   { name: "UI / UX Design", percent: 95, icon: <FaFigma /> },
-  { name: "Responsive Design", percent: 90, icon: <FaCss3Alt /> },
-  { name: "Backend Logic", percent: 75, icon: <FaPhp /> },
+  { name: "Responsive Design", percent: 90, icon: <FaMobileAlt /> },
+  { name: "Backend Logic", percent: 75, icon: <FaServer /> },
   { name: "Database Management", percent: 75, icon: <FaDatabase /> },
-  { name: "Problem Solving", percent: 92, icon: <FaUsers /> },
+  { name: "Problem Solving", percent: 92, icon: <FaLightbulb /> },
   { name: "Leadership & Communication", percent: 95, icon: <FaUsers /> },
 ]
 
-const tools = [
-  { name: "HTML", icon: <FaHtml5 /> },
-  { name: "CSS", icon: <FaCss3Alt /> },
-  { name: "PHP", icon: <FaPhp /> },
-  { name: "JavaScript", icon: <FaJs /> },
-  { name: "GitHub", icon: <FaGithub /> },
-  { name: "Figma", icon: <FaFigma /> },
-  { name: "Canva", icon: <SiCanva /> },
-  { name: "Adobe", icon: <SiAdobe /> },
-  { name: "MySQL", icon: <SiMysql /> },
-
-  // tambahan (AMAN)
-  { name: "CapCut", icon: <FaUsers /> },
-  { name: "Microsoft Office", icon: <FaDatabase /> },
+const toolGroups = [
+  {
+    label: "Languages & Frameworks",
+    items: [
+      { name: "HTML", icon: <FaHtml5 /> },
+      { name: "CSS", icon: <FaCss3Alt /> },
+      { name: "JavaScript", icon: <FaJs /> },
+      { name: "React", icon: <FaReact /> },
+      { name: "Next.js", icon: <SiNextdotjs /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { name: "Node.js", icon: <FaNodeJs /> },
+      { name: "PHP", icon: <FaPhp /> },
+      { name: "Python", icon: <FaPython /> },
+    ],
+  },
+  {
+    label: "Databases & Tools",
+    items: [
+      { name: "MySQL", icon: <SiMysql /> },
+      { name: "MongoDB", icon: <SiMongodb /> },
+      { name: "GitHub", icon: <FaGithub /> },
+      { name: "Microsoft Office", icon: <FaMicrosoft /> },
+    ],
+  },
+  {
+    label: "Design & Media",
+    items: [
+      { name: "Figma", icon: <FaFigma /> },
+      { name: "Canva", icon: <SiCanva /> },
+      { name: "Adobe", icon: <SiAdobe /> },
+      { name: "CapCut", icon: <FaVideo /> },
+    ],
+  },
 ]
 
 const languages = [
-  { name: "Indonesian", level: "Native" },
-  { name: "English", level: "Intermediate" },
+  { name: "Indonesian", level: "Native", percent: 100, flag: "/indo.webp" },
+  { name: "English", level: "Intermediate", percent: 70, flag: "/inggris.svg" },
+  { name: "German", level: "Beginner", percent: 25, flag: "/german.svg" },
 ]
 
 export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-28 px-6 md:px-20 bg-brownDark overflow-hidden"
+      className="relative py-20 md:py-28 px-5 sm:px-8 lg:px-20 bg-brownDark overflow-hidden"
     >
       <div className="absolute inset-0 bg-[url('/batik-pattern.svg')] opacity-[0.03]" />
 
       <div className="relative max-w-7xl mx-auto">
+        <SectionHeading
+          eyebrow="What I bring"
+          title="Skills &"
+          highlight="Expertise"
+          description="A balanced mix of technical skills, design thinking, and leadership experience shaped through academics, projects, and competitions."
+        />
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-4xl font-serifDisplay font-bold text-cream mb-4"
-        >
-          Skills & <span className="text-gold">Expertise</span>
-        </motion.h2>
-
-        <p className="text-cream/60 mb-14 max-w-xl">
-          A balanced mix of technical skills, design thinking, and leadership
-          experience shaped through academics, projects, and competitions.
-        </p>
-
-        <div className="flex gap-10 overflow-x-auto pb-6">
+        {/* Core skills */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 sm:gap-x-6">
           {skills.map((skill, i) => (
-            <SkillCircle key={i} skill={skill} />
+            <SkillCircle key={skill.name} skill={skill} index={i} />
           ))}
         </div>
 
         {/* Tools */}
+        <div className="mt-20 md:mt-24">
+          <h3 className="text-2xl sm:text-3xl font-semibold text-cream mb-8">
+            Tools & <span className="text-gold">Technologies</span>
+          </h3>
+
+          <div className="space-y-8">
+            {toolGroups.map((group) => (
+              <motion.div
+                key={group.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-xs tracking-[0.25em] uppercase text-gold/70 mb-4">
+                  {group.label}
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+                  {group.items.map((tool) => (
+                    <div
+                      key={tool.name}
+                      className="bg-card border border-gold/15 rounded-xl px-4 py-3.5 flex items-center gap-3 hover:border-gold/60 hover:-translate-y-0.5 transition-all"
+                    >
+                      <span className="text-xl text-gold shrink-0">{tool.icon}</span>
+                      <span className="text-cream/90 text-sm truncate">{tool.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Languages */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-24"
+          className="mt-20"
         >
-          <h3 className="text-2xl font-semibold text-gold mb-6">
-            Tools & Technologies
+          <h3 className="text-2xl sm:text-3xl font-semibold text-cream mb-8">
+            <span className="text-gold">Languages</span>
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {tools.map((tool, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.05 }}
-                className="bg-card border border-gold/20 rounded-xl p-6 flex items-center gap-4 hover:border-gold transition"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            {languages.map((lang) => (
+              <div
+                key={lang.name}
+                className="bg-card border border-gold/20 rounded-2xl p-5 sm:p-6 flex items-center gap-4 hover:border-gold transition"
               >
-                <div className="text-2xl text-gold">
-                  {tool.icon}
+                <img
+                  src={lang.flag}
+                  alt={`${lang.name} flag`}
+                  className="w-10 h-10 object-contain shrink-0"
+                />
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="text-cream font-semibold">{lang.name}</p>
+                    <p className="text-cream/60 text-xs sm:text-sm">{lang.level}</p>
+                  </div>
+
+                  <div className="mt-2.5 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${lang.percent}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      viewport={{ once: true }}
+                      className="h-full bg-gold rounded-full"
+                    />
+                  </div>
                 </div>
-                <p className="text-cream">{tool.name}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>
-
-        {/* Languages */}
-<motion.div
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
-  className="mt-20"
->
-  <h3 className="text-2xl font-semibold text-gold mb-6">
-    Languages
-  </h3>
-
-  <div className="flex flex-col sm:flex-row gap-6 max-w-xl">
-    {/* Indonesian */}
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      className="flex-1 bg-card border border-gold/20 rounded-2xl p-6 flex items-center gap-4 hover:border-gold transition"
-    >
-      <img
-        src="/indo.webp"
-        alt="Indonesian Flag"
-        className="w-10 h-10 object-contain"
-      />
-
-      <div className="flex-1">
-        <p className="text-cream font-semibold">
-          Indonesian
-        </p>
-        <p className="text-cream/60 text-sm">
-          Native
-        </p>
-
-        {/* Progress bar */}
-        <div className="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
-          <div className="h-full w-full bg-gold rounded-full" />
-        </div>
-      </div>
-    </motion.div>
-
-    {/* English */}
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      className="flex-1 bg-card border border-gold/20 rounded-2xl p-6 flex items-center gap-4 hover:border-gold transition"
-    >
-      <img
-        src="/inggris.svg"
-        alt="English Flag"
-        className="w-10 h-10 object-contain"
-      />
-
-      <div className="flex-1">
-        <p className="text-cream font-semibold">
-          English
-        </p>
-        <p className="text-cream/60 text-sm">
-          Intermediate
-        </p>
-
-        {/* Progress bar */}
-        <div className="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
-          <div className="h-full w-[70%] bg-gold rounded-full" />
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</motion.div>
-
       </div>
     </section>
   )
 }
 
-function SkillCircle({ skill }) {
-  const radius = 55
+function SkillCircle({ skill, index }) {
+  const size = 144
+  const radius = 60
   const circumference = 2 * Math.PI * radius
-  const offset =
-    circumference - (skill.percent / 100) * circumference
+  const offset = circumference - (skill.percent / 100) * circumference
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.85 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5, delay: (index % 4) * 0.08 }}
       viewport={{ once: true }}
-      className="flex-shrink-0 w-44 flex flex-col items-center"
+      className="flex flex-col items-center"
     >
-      <div className="relative w-36 h-36">
-        <svg className="w-full h-full rotate-[-90deg]">
+      <div className="relative w-28 h-28 sm:w-36 sm:h-36">
+        <svg
+          viewBox={`0 0 ${size} ${size}`}
+          className="w-full h-full -rotate-90"
+          aria-hidden="true"
+        >
           <circle
-            cx="50%"
-            cy="50%"
+            cx={size / 2}
+            cy={size / 2}
             r={radius}
             stroke="rgba(255,255,255,0.08)"
             strokeWidth="8"
             fill="none"
           />
-          <circle
-            cx="50%"
-            cy="50%"
+          <motion.circle
+            cx={size / 2}
+            cy={size / 2}
             r={radius}
             stroke="#D4AF37"
             strokeWidth="8"
             fill="none"
             strokeDasharray={circumference}
-            strokeDashoffset={offset}
+            initial={{ strokeDashoffset: circumference }}
+            whileInView={{ strokeDashoffset: offset }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
             strokeLinecap="round"
           />
         </svg>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="text-gold text-xl mb-1">
-            {skill.icon}
-          </div>
-          <p className="text-cream font-bold text-lg">
+          <div className="text-gold text-lg sm:text-xl mb-1">{skill.icon}</div>
+          <p className="text-cream font-bold text-base sm:text-lg">
             {skill.percent}%
           </p>
         </div>
       </div>
 
-      <p className="text-cream mt-3 text-sm font-medium text-center">
+      <p className="text-cream/90 mt-3 text-xs sm:text-sm font-medium text-center max-w-[10rem]">
         {skill.name}
       </p>
     </motion.div>

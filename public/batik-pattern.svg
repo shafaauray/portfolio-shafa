@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <!-- Subtle kawung-inspired motif, tiled as a background texture -->
+  <g fill="none" stroke="#D4AF37" stroke-width="1.2">
+    <ellipse cx="40" cy="20" rx="9" ry="16" />
+    <ellipse cx="40" cy="60" rx="9" ry="16" />
+    <ellipse cx="20" cy="40" rx="16" ry="9" />
+    <ellipse cx="60" cy="40" rx="16" ry="9" />
+    <circle cx="40" cy="40" r="3" />
+    <circle cx="0" cy="0" r="3" />
+    <circle cx="80" cy="0" r="3" />
+    <circle cx="0" cy="80" r="3" />
+    <circle cx="80" cy="80" r="3" />
+  </g>
+</svg>

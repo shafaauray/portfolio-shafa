@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
+import SectionHeading from "../components/SectionHeading"
 
 /* =======================
    DATA
@@ -17,7 +18,7 @@ const certificateGroups = {
         link: "/certificates/Certificate Python Essentials CISCO_Shafa Aura Y.pdf",
       },
       {
-        title: "Dynamics 365 Customer Service Caabilities and Related Apps",
+        title: "Dynamics 365 Customer Service Capabilities and Related Apps",
         issuer: "Microsoft Learn",
         year: "2025",
         image: "/certificates/Certificate_Describe Dynamics 365 Customer Service capabilities and related apps_Shafa Aura Y.jpg",
@@ -59,7 +60,7 @@ const certificateGroups = {
         link: "https://www.datacamp.com/statement-of-accomplishment/course/a91c1cbd9d7a09fe6aa3ae89e71226a33d53626f?raw=1",
       },
       {
-        title: "Dimensionalitiy Reduction in Python",
+        title: "Dimensionality Reduction in Python",
         issuer: "DataCamp",
         year: "2024",
         image: "/certificates/Certificate Dimensionality Reduction in Python_Shafa Aura Y.jpg",
@@ -218,7 +219,7 @@ const certificateGroups = {
         link: "/certificates/sertifikat KODIKLAT TNI_Shafa.jpeg",
       },
       {
-        title: "1st Place Female Individual Kata, KEJURPORV Banten",
+        title: "1st Place Female Individual Kata, KEJURPROV Banten",
         issuer: "KONI Banten x DISPORA Banten x Danau Mas Resto, Indonesia",
         year: "2018",
         image: "/certificates/sertifikat KEJURPROV SENIOR 18_Shafa.jpeg",
@@ -244,38 +245,35 @@ export default function Certificates() {
   const certificates = certificateGroups[active].items
 
   return (
-    <section id="certificates" className="py-28 px-6 md:px-20 bg-brownDark">
+    <section id="certificates" className="py-20 md:py-28 px-5 sm:px-8 lg:px-20 bg-brownDark">
       <div className="max-w-7xl mx-auto">
 
-        {/* TITLE */}
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-serifDisplay font-bold text-gold mb-6"
-        >
-          Certificates & Licenses
-        </motion.h2>
-
-        <p className="text-cream/60 max-w-xl mb-10">
-          A curated collection of achievement certificates and professional
-          learning credentials earned through competitions and academic growth.
-        </p>
+        <SectionHeading
+          eyebrow="Credentials"
+          title="Certificates &"
+          highlight="Licenses"
+          description="A curated collection of professional learning credentials and achievement certificates earned through courses, competitions, and academic growth."
+        />
 
         {/* CATEGORY SWITCH */}
-        <div className="flex gap-3 mb-10 flex-wrap">
+        <div className="flex gap-3 mb-8 flex-wrap" role="tablist" aria-label="Certificate categories">
           {Object.keys(certificateGroups).map((key) => (
             <button
               key={key}
+              type="button"
+              role="tab"
+              aria-selected={active === key}
               onClick={() => setActive(key)}
-              className={`px-5 py-2 rounded-full text-sm border transition-all ${
+              className={`px-4 sm:px-5 py-2 rounded-full text-sm border transition-all ${
                 active === key
                   ? "bg-gold text-brownDark border-gold"
                   : "text-cream/70 border-gold/30 hover:text-gold"
               }`}
             >
               {certificateGroups[key].label}
+              <span className="ml-2 opacity-70">
+                {certificateGroups[key].items.length}
+              </span>
             </button>
           ))}
         </div>
@@ -284,48 +282,49 @@ export default function Certificates() {
         <div className="relative">
 
           {/* GRID */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-h-[520px] overflow-y-auto pr-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 max-h-[600px] sm:max-h-[640px] overflow-y-auto pr-1 sm:pr-2 pb-16">
             {certificates.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.03 }}
-                className="bg-card border border-gold/20 rounded-xl overflow-hidden flex flex-col"
+                transition={{ duration: 0.4, delay: (i % 5) * 0.05 }}
+                className="group bg-card border border-gold/20 rounded-xl overflow-hidden flex flex-col hover:border-gold/50 transition-colors"
               >
                 {/* IMAGE */}
                 <div className="aspect-[5/3] overflow-hidden">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-3 flex flex-col flex-1">
-                  <h3 className="text-cream font-medium text-xs leading-snug line-clamp-2">
+                <div className="p-3 sm:p-4 flex flex-col flex-1">
+                  <h3 className="font-body text-cream font-medium text-xs sm:text-sm leading-snug line-clamp-2 tracking-normal">
                     {item.title}
                   </h3>
 
-                  <p className="mt-1 text-[10px] text-gold/80">
+                  <p className="mt-1.5 text-[11px] sm:text-xs text-gold/80 line-clamp-2">
                     {item.issuer}
                   </p>
 
-                  <p className="text-[9px] text-cream/50">
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-cream/50">
                     {item.year}
                   </p>
 
                   {/* BUTTON */}
-                  <div className="mt-auto pt-2">
+                  <div className="mt-auto pt-3">
                     <a
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block text-[10px] text-gold border border-gold/40 px-2 py-1 rounded-full hover:bg-gold hover:text-brownDark transition"
+                      className="inline-block text-[11px] sm:text-xs text-gold border border-gold/40 px-3 py-1 rounded-full hover:bg-gold hover:text-brownDark transition"
                     >
-                      View
+                      View Certificate
                     </a>
                   </div>
                 </div>
