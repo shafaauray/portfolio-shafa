@@ -1,32 +1,13 @@
 import { motion } from "framer-motion"
 import { FiArrowUpRight } from "react-icons/fi"
 import SectionHeading from "../components/SectionHeading"
+import { useContent } from "../context/contentContext"
+import { img } from "../lib/sanity"
 
-const educationData = [
-  {
-    school: "Universitas Gadjah Mada",
-    period: "2022 – Present",
-    major: "Undergraduate in Information Engineering, Faculty of Engineering",
-    logo: "/logougm.webp",
-    link: "https://ugm.ac.id/id/tentang-ugm/",
-  },
-  {
-    school: "SMA Negeri 1 Kota Tangerang",
-    period: "2019 – 2022",
-    major: "Mathematics & Natural Sciences Major",
-    logo: "/logosman1.png",
-    link: "https://sman1tangerang.sch.id/index/read/2/profil-sman-1-kota-tangerang",
-  },
-  {
-    school: "SMP Negeri 1 Kota Tangerang",
-    period: "2016 – 2019",
-    major: "Natural Sciences Major",
-    logo: "/logosmpn1.png",
-    link: "https://smpn1tangerang.sch.id/",
-  },
-]
 
 export default function Education() {
+  const { education } = useContent()
+
   return (
     <section
       id="education"
@@ -36,7 +17,7 @@ export default function Education() {
         <SectionHeading eyebrow="Academic background" title="Education" />
 
         <div className="space-y-4 sm:space-y-6">
-          {educationData.map((item, i) => (
+          {education.map((item, i) => (
             <motion.a
               key={item.school}
               href={item.link}
@@ -51,7 +32,7 @@ export default function Education() {
               {/* LOGO */}
               <div className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 rounded-full bg-brownDark flex items-center justify-center overflow-hidden border border-gold/30">
                 <img
-                  src={item.logo}
+                  src={img(item.logo, 160)}
                   alt={`${item.school} logo`}
                   loading="lazy"
                   className="w-10 h-10 sm:w-12 sm:h-12 object-contain"

@@ -1,71 +1,10 @@
 import { motion } from "framer-motion"
 import SectionHeading from "../components/SectionHeading"
+import { useContent } from "../context/contentContext"
 
-const achievementsData = [
-  {
-    rank: "🥉",
-    title: "3rd Place Senior Female Individual Kata",
-    event: "International Silent Knight Karate Cup 2024",
-    location: "Kuala Lumpur, Malaysia",
-  },
-  {
-    rank: "🥈",
-    title: "2nd Place Senior Female Team Kata",
-    event: "International Silent Knight Karate Cup 2024",
-    location: "Kuala Lumpur, Malaysia",
-  },
-  {
-    rank: "🥈",
-    title: "2nd Place Senior Female Individual Kata",
-    event: "National IPB Karate Cup VII 2024",
-    location: "Jawa Barat, Indonesia",
-  },
-  {
-    rank: "🥈",
-    title: "2nd Place Senior Female Team Kata",
-    event: "National IPB Karate Cup VII 2024",
-    location: "Jawa Barat, Indonesia",
-  },
-  {
-    rank: "🥉",
-    title: "3rd Place U21 Female Individual Kata",
-    event: "International Magelang Karate Championship 2023",
-    location: "Jawa Tengah, Indonesia",
-  },
-  {
-    rank: "🥉",
-    title: "3rd Place Senior Female Individual Kata",
-    event: "Brawijaya University Karate Championship 2023",
-    location: "Jawa Timur, Indonesia",
-  },
-  {
-    rank: "🥇",
-    title: "1st Place Female Individual Kata",
-    event: "KOSN Provinsi Banten 2021",
-    location: "Banten, Indonesia",
-  },
-  {
-    rank: "🥇",
-    title: "1st Place Female Individual Kata",
-    event: "KOSN Kota Tangerang 2021",
-    location: "Banten, Indonesia",
-  },
-  {
-    rank: "🥇",
-    title: "1st Place Junior Female Individual Kata",
-    event: "Pekan Olahraga Kota Tangerang 2021",
-    location: "Banten, Indonesia",
-  },
-  {
-    rank: "🥈",
-    title: "2nd Place Junior Female Individual Kata",
-    event: "KEJURPROV Banten 2021",
-    location: "Banten, Indonesia",
-  },
-]
 
 function getBadge(rank) {
-  if (rank === "🥇") {
+  if (rank === "gold") {
     return {
       text: "GOLD",
       className:
@@ -73,7 +12,7 @@ function getBadge(rank) {
     }
   }
 
-  if (rank === "🥈") {
+  if (rank === "silver") {
     return {
       text: "SILVER",
       className:
@@ -89,6 +28,8 @@ function getBadge(rank) {
 }
 
 export default function Achievements() {
+  const { achievements } = useContent()
+
   return (
     <section
       id="achievements"
@@ -110,7 +51,7 @@ export default function Achievements() {
 
         {/* ACHIEVEMENTS GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
-          {achievementsData.map((item, i) => {
+          {achievements.map((item, i) => {
             const badge = getBadge(item.rank)
 
             return (

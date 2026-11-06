@@ -2,6 +2,8 @@ import { motion } from "framer-motion"
 import { FiArrowUpRight } from "react-icons/fi"
 import { HiOutlineLocationMarker } from "react-icons/hi"
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa"
+import { useContent } from "../context/contentContext"
+import { img } from "../lib/sanity"
 
 const container = {
   hidden: { opacity: 0 },
@@ -27,6 +29,8 @@ const socials = [
 ]
 
 function Hero() {
+  const { profile } = useContent()
+
   return (
     <section
       id="top"
@@ -53,7 +57,7 @@ function Hero() {
             className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full text-xs sm:text-sm bg-gold/10 border border-gold/20 text-gold tracking-wide"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Open to collaboration
+            {profile.badge}
           </motion.span>
 
           <motion.h1
@@ -68,17 +72,14 @@ function Hero() {
             variants={item}
             className="text-lg sm:text-xl text-cream/90 font-medium mb-5"
           >
-            UI/UX Designer & Frontend Developer
+            {profile.role}
           </motion.p>
 
           <motion.p
             variants={item}
             className="text-cream/70 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-6 text-sm sm:text-base"
           >
-            Information Engineering student at Universitas Gadjah Mada with a
-            strong interest in UI/UX, web development, and meaningful digital
-            experiences, blending technology and creativity with the discipline
-            of a karate athlete.
+            {profile.intro}
           </motion.p>
 
           <motion.div
@@ -86,7 +87,7 @@ function Hero() {
             className="flex items-center justify-center lg:justify-start gap-2 text-sm text-cream/60 mb-8"
           >
             <HiOutlineLocationMarker className="text-gold" />
-            Kota Tangerang, Indonesia
+            {profile.location}
           </motion.div>
 
           <motion.div
@@ -152,7 +153,7 @@ function Hero() {
 
               <div className="relative bg-card border border-gold/30 rounded-2xl p-5 w-60 sm:w-64 text-center">
                 <img
-                  src="/fotoshafa.jpg"
+                  src={img(profile.heroPhoto, 600)}
                   alt="Portrait of Shafa Aura Yogadiasa"
                   className="rounded-xl mb-4 w-full aspect-[4/5] object-cover"
                 />

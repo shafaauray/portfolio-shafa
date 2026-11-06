@@ -2,41 +2,13 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 import { FiChevronLeft, FiChevronRight, FiArrowUpRight, FiLock } from "react-icons/fi"
 import SectionHeading from "../components/SectionHeading"
+import { useContent } from "../context/contentContext"
+import { img } from "../lib/sanity"
 
-const projects = [
-  {
-    title: "KARIR.AI",
-    subtitle: "AI Career Recommendation Platform",
-    description:
-      "A web-based AI platform that analyzes user resumes to generate personalized career recommendations.",
-    tech: ["Next.js", "React", "Node.js", "AI"],
-    link: "https://karir-ai.vercel.app",
-    linkLabel: "Live Demo",
-    images: ["/karirai-demo.mp4", "/karir.png", "/karir2.png", "/karir3.png", "/karir4.png"],
-  },
-  {
-    title: "AFFECTRA",
-    subtitle: "EEG-Based Emotion Tracker",
-    description:
-      "EEG wearable system to classify emotions using AI with an interactive dashboard.",
-    tech: ["MERN", "AI", "EEG"],
-    link: "https://github.com/hezekielstp/Capstone-B05",
-    linkLabel: "View on GitHub",
-    images: ["/affectra.png", "/affectra2.png", "/affectra3.png", "/affectra4.png"],
-  },
-  {
-    title: "BukuTamu BKN Yogyakarta",
-    subtitle: "Digital Guest Book System",
-    description:
-      "Web-based guest book system for managing visitors efficiently at the BKN Yogyakarta office.",
-    tech: ["HTML", "CSS", "PHP"],
-    // No public link: internal system built during the BKN internship
-    link: null,
-    images: ["/bkn.png", "/bkn2.png", "/bkn3.png", "/bkn4.png", "/bkn5.png"],
-  },
-]
 
 export default function Projects() {
+  const { projects } = useContent()
+
   return (
     <section
       id="projects"
@@ -64,12 +36,14 @@ export default function Projects() {
 
 function ProjectCard({ project, index }) {
   const [current, setCurrent] = useState(0)
-  const total = project.images.length
+  const media = project.media || []
+  const total = media.length
 
   const go = (step) => setCurrent((prev) => (prev + step + total) % total)
 
-  const currentMedia = project.images[current]
-  const isVideo = currentMedia.endsWith(".mp4")
+  const currentMedia = media[current]
+  const isVideo = currentMedia?.type === "video"
+  const poster = media.find((m) => m.type === "image")?.url
 
   return (
     <motion.article
@@ -81,23 +55,23 @@ function ProjectCard({ project, index }) {
     >
       {/* MEDIA */}
       <div className="relative aspect-video bg-brownSoft">
-        {isVideo ? (
+        {!currentMedia ? null : isVideo ? (
           <video
-            key={currentMedia}
+            key={currentMedia.url}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            poster={project.images[1]}
+            poster={img(poster, 900)}
             className="w-full h-full object-cover"
             aria-label={`${project.title} demo video`}
           >
-            <source src={currentMedia} type="video/mp4" />
+            <source src={currentMedia.url} type="video/mp4" />
           </video>
         ) : (
           <img
-            src={currentMedia}
+            src={img(currentMedia.url, 900)}
             alt={`${project.title} screenshot ${current + 1} of ${total}`}
             loading="lazy"
             className="w-full h-full object-cover"
@@ -125,7 +99,7 @@ function ProjectCard({ project, index }) {
             </button>
 
             <div className="absolute bottom-2.5 w-full flex justify-center gap-1.5">
-              {project.images.map((_, i) => (
+              {media.map((_, i) => (
                 <button
                   key={i}
                   type="button"
@@ -151,7 +125,7 @@ function ProjectCard({ project, index }) {
         </p>
 
         <ul className="flex flex-wrap gap-2 mt-5">
-          {project.tech.map((t) => (
+          {(project.tech || []).map((t) => (
             <li
               key={t}
               className="text-xs text-cream/80 bg-white/5 border border-gold/15 rounded-full px-3 py-1"
@@ -169,7 +143,7 @@ function ProjectCard({ project, index }) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gold border border-gold/50 rounded-full hover:bg-gold hover:text-brownDark transition"
             >
-              {project.linkLabel} <FiArrowUpRight />
+              {project.linkLabel || "View Project"} <FiArrowUpRight />
             </a>
           ) : (
             <span className="inline-flex items-center gap-2 px-5 py-2.5 text-sm text-cream/50 border border-cream/15 rounded-full">

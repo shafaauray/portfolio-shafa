@@ -1,6 +1,8 @@
 import { motion } from "framer-motion"
 import { FaGraduationCap, FaMedal, FaUsers } from "react-icons/fa"
 import SectionHeading from "../components/SectionHeading"
+import { useContent } from "../context/contentContext"
+import { img } from "../lib/sanity"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -11,7 +13,7 @@ const fadeUp = {
   },
 }
 
-const highlights = [
+const getHighlights = (profile) => [
   {
     icon: <FaGraduationCap />,
     title: "UGM",
@@ -21,7 +23,7 @@ const highlights = [
   },
   {
     icon: <FaMedal />,
-    title: "20+",
+    title: profile.medalsCount,
     caption: "National & International Medals",
     href: "#achievements",
   },
@@ -34,6 +36,9 @@ const highlights = [
 ]
 
 function About() {
+  const { profile } = useContent()
+  const highlights = getHighlights(profile)
+
   return (
     <section
       id="about"
@@ -55,30 +60,18 @@ function About() {
             <div className="absolute -inset-1 bg-gold/20 blur-2xl rounded-3xl" />
 
             <div className="relative bg-card border border-gold/20 rounded-3xl p-6 sm:p-8">
-              <p className="text-cream/80 leading-relaxed mb-5 text-sm sm:text-base">
-                I’m an undergraduate Information Technology student who enjoys
-                exploring the intersection of design, technology, and human
-                interaction. My main interests lie in UI/UX design and frontend
-                development, while staying grounded in a broad IT foundation that
-                allows me to adapt across different roles and projects. Outside
-                the technical space, I’ve gained extensive experience as an MC and
-                in organizational roles, which has strengthened my communication
-                skills, confidence, and ability to connect with diverse audiences.
-                These experiences help me approach digital products not only from
-                a technical perspective, but also from a human-centered one.
-              </p>
-
-              <p className="text-cream/65 leading-relaxed mb-8 text-sm sm:text-base">
-                I’m also a karate athlete with national and international
-                achievements. Martial arts have shaped my discipline, resilience,
-                and consistency, values I carry into both my academic and creative
-                work. Beyond technology, I’m inspired by art, culture,
-                photography, and music, which often influence how I think about
-                design and storytelling. With a background shaped by both
-                structure and creativity, I’m always eager to learn, collaborate,
-                and build digital experiences that are thoughtful, functional, and
-                human-centered.
-              </p>
+              <div className="space-y-5 mb-8">
+                {profile.aboutParagraphs.map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className={`leading-relaxed text-sm sm:text-base ${
+                      i === 0 ? "text-cream/80" : "text-cream/65"
+                    }`}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {highlights.map((h) => (
@@ -119,7 +112,7 @@ function About() {
 
               <div className="relative h-full rounded-3xl overflow-hidden border border-gold/40">
                 <img
-                  src="/fotoshafa2.jpg"
+                  src={img(profile.aboutPhoto, 700)}
                   alt="Shafa Aura Yogadiasa"
                   loading="lazy"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700"

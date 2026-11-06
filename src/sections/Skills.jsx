@@ -1,86 +1,22 @@
 import { motion } from "framer-motion"
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaPhp,
-  FaJs,
-  FaGithub,
-  FaFigma,
-  FaDatabase,
-  FaUsers,
-  FaReact,
-  FaNodeJs,
-  FaPython,
-  FaMicrosoft,
-  FaVideo,
-  FaLightbulb,
-  FaMobileAlt,
-  FaServer,
-  FaCode,
-} from "react-icons/fa"
-import {
-  SiCanva,
-  SiAdobe,
-  SiMysql,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiMongodb,
-} from "react-icons/si"
 import SectionHeading from "../components/SectionHeading"
+import { useContent } from "../context/contentContext"
+import { renderIcon } from "../lib/icons"
+import { img } from "../lib/sanity"
 
-const skills = [
-  { name: "Web Development", percent: 85, icon: <FaCode /> },
-  { name: "Frontend Engineering", percent: 90, icon: <FaJs /> },
-  { name: "UI / UX Design", percent: 95, icon: <FaFigma /> },
-  { name: "Responsive Design", percent: 90, icon: <FaMobileAlt /> },
-  { name: "Backend Logic", percent: 75, icon: <FaServer /> },
-  { name: "Database Management", percent: 75, icon: <FaDatabase /> },
-  { name: "Problem Solving", percent: 92, icon: <FaLightbulb /> },
-  { name: "Leadership & Communication", percent: 95, icon: <FaUsers /> },
-]
-
-const toolGroups = [
-  {
-    label: "Languages & Frameworks",
-    items: [
-      { name: "HTML", icon: <FaHtml5 /> },
-      { name: "CSS", icon: <FaCss3Alt /> },
-      { name: "JavaScript", icon: <FaJs /> },
-      { name: "React", icon: <FaReact /> },
-      { name: "Next.js", icon: <SiNextdotjs /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-      { name: "Node.js", icon: <FaNodeJs /> },
-      { name: "PHP", icon: <FaPhp /> },
-      { name: "Python", icon: <FaPython /> },
-    ],
-  },
-  {
-    label: "Databases & Tools",
-    items: [
-      { name: "MySQL", icon: <SiMysql /> },
-      { name: "MongoDB", icon: <SiMongodb /> },
-      { name: "GitHub", icon: <FaGithub /> },
-      { name: "Microsoft Office", icon: <FaMicrosoft /> },
-    ],
-  },
-  {
-    label: "Design & Media",
-    items: [
-      { name: "Figma", icon: <FaFigma /> },
-      { name: "Canva", icon: <SiCanva /> },
-      { name: "Adobe", icon: <SiAdobe /> },
-      { name: "CapCut", icon: <FaVideo /> },
-    ],
-  },
-]
-
-const languages = [
-  { name: "Indonesian", level: "Native", percent: 100, flag: "/indo.webp" },
-  { name: "English", level: "Intermediate", percent: 70, flag: "/inggris.svg" },
-  { name: "German", level: "Beginner", percent: 25, flag: "/german.svg" },
+const TOOL_GROUPS = [
+  { key: "frameworks", label: "Languages & Frameworks" },
+  { key: "data", label: "Databases & Tools" },
+  { key: "design", label: "Design & Media" },
 ]
 
 export default function Skills() {
+  const { skills, tools, languages } = useContent()
+  const toolGroups = TOOL_GROUPS.map((g) => ({
+    ...g,
+    items: tools.filter((t) => t.group === g.key),
+  })).filter((g) => g.items.length > 0)
+
   return (
     <section
       id="skills"
@@ -128,7 +64,7 @@ export default function Skills() {
                       key={tool.name}
                       className="bg-card border border-gold/15 rounded-xl px-4 py-3.5 flex items-center gap-3 hover:border-gold/60 hover:-translate-y-0.5 transition-all"
                     >
-                      <span className="text-xl text-gold shrink-0">{tool.icon}</span>
+                      <span className="text-xl text-gold shrink-0">{renderIcon(tool.icon)}</span>
                       <span className="text-cream/90 text-sm truncate">{tool.name}</span>
                     </div>
                   ))}
@@ -157,7 +93,7 @@ export default function Skills() {
                 className="bg-card border border-gold/20 rounded-2xl p-5 sm:p-6 flex items-center gap-4 hover:border-gold transition"
               >
                 <img
-                  src={lang.flag}
+                  src={img(lang.flag, 120)}
                   alt={`${lang.name} flag`}
                   className="w-10 h-10 object-contain shrink-0"
                 />
@@ -232,7 +168,7 @@ function SkillCircle({ skill, index }) {
         </svg>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="text-gold text-lg sm:text-xl mb-1">{skill.icon}</div>
+          <div className="text-gold text-lg sm:text-xl mb-1">{renderIcon(skill.icon)}</div>
           <p className="text-cream font-bold text-base sm:text-lg">
             {skill.percent}%
           </p>
